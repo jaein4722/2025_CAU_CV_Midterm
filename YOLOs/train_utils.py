@@ -6,6 +6,7 @@ import pandas as pd
 from datetime import datetime
 import torch
 from ultralytics import settings, YOLO
+from config import BaseConfig
 settings.update({'datasets_dir': './'})
 
 def control_random_seed(seed, pytorch=True):
@@ -81,7 +82,7 @@ def update_dataset_paths(dataset_root, dataset_name, iteration):
     return True
 
 
-def train_model(ex_dict):
+def train_model(ex_dict, config: BaseConfig):
     ex_dict['Train Time'] = datetime.now().strftime("%y%m%d_%H%M%S")
     name = f"{ex_dict['Train Time']}_{ex_dict['Model Name']}_{ex_dict['Dataset Name']}_Iter_{ex_dict['Iteration']}"
     task = "detect"
@@ -89,52 +90,19 @@ def train_model(ex_dict):
     ex_dict['Train Results'] = ex_dict['Model'].train(
         model = f"{ex_dict['Model Name']}.yaml",
         name=name,
-        data=ex_dict['Data Config'] ,
-        epochs=ex_dict['Epochs'],
-        imgsz=ex_dict['Image Size'],
-        batch=ex_dict['Batch Size'],
-        patience=3,
-        save=True,
-        device=ex_dict['Device'],
-        exist_ok=True,
-        verbose=False,
-        optimizer=ex_dict['Optimizer'],
-        lr0=ex_dict['LR'],  
-        lrf=ex_dict['LRF'], 
-        weight_decay = ex_dict['Weight Decay'],
-        momentum = ex_dict['Momentum'],
-        pretrained=False,
-        amp=False,
-        task = task,
-        project =f"{ex_dict['Output Dir']}/{task}",
-        cos_lr=ex_dict['Cos LR'],
-        hsv_h=ex_dict['hsv_h'],
-        hsv_s=ex_dict['hsv_s'],
-        hsv_v=ex_dict['hsv_v'],
-        degrees=ex_dict['degrees'],
-        translate=ex_dict['translate'],
-        scale=ex_dict['scale'],
-        flipud=ex_dict['flipud'],
-        fliplr=ex_dict['fliplr'],
-        mosaic=ex_dict['mosaic'],
-        mixup=ex_dict['mixup'],
-        copy_paste=ex_dict['copy_paste'],
-        box=ex_dict['box'],
-        cls=ex_dict['cls'],
-        dfl=ex_dict['dfl'],  # 항상 전달하되 내부에서는 YOLOv5는 무시됨
+        data=ex_dict['Data Config'],
+        project =f"{ex_dict['Output Dir']}/train",
+        **config.hyperparams()
     )
-    pt_path = f"{ex_dict['Output Dir']}/{task}/{name}/weights/best.pt"
+    pt_path = f"{ex_dict['Output Dir']}/train/{name}/weights/best.pt"
     ex_dict['PT path'] = pt_path
     ex_dict['Model'].load(pt_path)
     return ex_dict
 
 
 def evaluate_model(ex_dict):
-    task = f"{ex_dict['Experiment Time']}_Test"
-    name = f"{ex_dict['Train Time']}_{ex_dict['Model Name']}_{ex_dict['Dataset Name']}_Iter_{ex_dict['Iteration']}"
     ex_dict['Test Results'] = ex_dict['Model'].val(data=ex_dict['Data Config'], 
-                                                   task = task,
-                                                    project =f"{ex_dict['Output Dir']}/{task}",
+                                                    project =f"{ex_dict['Output Dir']}/test",
                                                    split='test', save=True)
     return ex_dict
     

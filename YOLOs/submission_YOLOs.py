@@ -12,7 +12,7 @@ def submission_function(yaml_path, output_json_path):
     
     ###### can be modified (Only Models, which can't be modified in demo) ######
     test_images = get_test_images(config)
-    results_dict = detect_and_save_bboxes('output/detect/250416_184655_yolov8n_airplane_test_Iter_1/weights/best.pt', test_images)
+    results_dict = detect_and_save_bboxes('output/detect/250417_032545_yolov8n_airplane_Iter_5/weights/best.pt', test_images)
     ###### can be modified ######
     save_results_to_file(results_dict, output_json_path)
 
