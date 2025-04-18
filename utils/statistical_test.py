@@ -12,9 +12,9 @@ def parse():
     parser = argparse.ArgumentParser(
         description='Generate tables from CSV file using make_tables function.')
     
-    parser.add_argument('input_csv', type=str,
+    parser.add_argument('--input_csv', type=str,
                         help='Path to the input CSV file')
-    parser.add_argument('reference_model', type=str,
+    parser.add_argument('--reference_model', type=str,
                         help='Reference column name for model (e.g., "yolov8n")')
     
     return parser.parse_args()

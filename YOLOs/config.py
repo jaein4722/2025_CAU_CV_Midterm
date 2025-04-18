@@ -29,12 +29,12 @@ class BaseConfig:
 
         # Optimizer settings
         self.optimizer = 'AdamW'
-        self.lr0 = 1e-2
-        self.lrf = 1e-2 # Final cosine LR
-        self.momentum = 0.937
+        self.lr0 = 0.003
+        self.lrf = 0.01 # Final cosine LR
+        self.momentum = 0.9
         self.weight_decay = 1e-4
-        self.warmup_epochs = 3.0
-        self.warmup_momentum = 0.8
+        self.warmup_epochs = 2.0
+        self.warmup_momentum = 0.85
         self.warmup_bias_lr = 0.1
 
         # Device
@@ -56,20 +56,20 @@ class BaseConfig:
         self.flipud = 0.0
         self.fliplr = 0.5
         self.mosaic = 1.0
-        self.mixup = 0.5
+        self.mixup = 0.0
         self.copy_paste = 0.0
 
         # Loss
         self.box = 5.0
-        self.cls = 0.7
-        self.dfl = 1.0
+        self.cls = 0.3
+        self.dfl = 1.5
         
         # Training strategies
-        self.single_cls = False
+        self.single_cls = True
         self.rect = False
         self.multi_scale = False
-        self.cos_lr = False
-        self.close_mosaic = 10
+        self.cos_lr = True
+        self.close_mosaic = 2
         self.resume = False
         self.fraction = 1.0
         self.profile = False
@@ -91,7 +91,7 @@ class BaseConfig:
         if allowed_keys is None:
             allowed_keys = {
                 'epochs', 'time', 'patience', 'batch', 'imgsz', 'save',
-                'save_period', 'cache', 'workers', 'exist_ok',
+                'save_period', 'cache', 'device', 'workers', 'exist_ok',
                 'pretrained', 'optimizer', 'deterministic', 'single_cls', 'classes',
                 'rect', 'multi_scale', 'cos_lr', 'close_mosaic', 'resume', 'amp', 'fraction',
                 'profile', 'freeze', 'lr0', 'lrf', 'momentum', 'weight_decay', 'warmup_epochs',
@@ -107,27 +107,47 @@ class v8Config(BaseConfig):
     def __init__(self):
         super().__init__()
         self.model_name = 'yolov8n'
+        self.lr0 = 0.003
+        self.dfl = 1.5
+        self.cls = 0.3
+        self.box = 5.0
 
 
 class v9Config(BaseConfig):
     def __init__(self):
         super().__init__()
         self.model_name = 'yolov9t'
+        self.lr0 = 0.0025
+        self.dfl = 1.3
+        self.cls = 0.25
+        self.box = 5.0
 
 
 class v10Config(BaseConfig):
     def __init__(self):
         super().__init__()
         self.model_name = 'yolov10n'
+        self.lr0 = 0.002
+        self.dfl = 1.3
+        self.cls = 0.2
+        self.box = 5.0
 
 
 class v11Config(BaseConfig):
     def __init__(self):
         super().__init__()
         self.model_name = 'yolo11n'
+        self.lr0 = 0.0015
+        self.dfl = 1.2
+        self.cls = 0.2
+        self.box = 4.5
 
 
 class v12Config(BaseConfig):
     def __init__(self):
         super().__init__()
         self.model_name = 'yolo12n'
+        self.lr0 = 0.001
+        self.dfl = 1.0
+        self.cls = 0.2
+        self.box = 4.5
