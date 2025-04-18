@@ -106,8 +106,13 @@ dmypy.json
 .DS_Store
 
 # Custom
-Datasets/
+Datasets/*
+!Datasets/_dummy/
+!Datasets/_dummy/**
+__legacy_YOLOs/
 *.pt
 
 # Outputs
-output/
+output/*
+!output/_example/
+!output/_example/**
