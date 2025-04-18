@@ -123,24 +123,25 @@ def create_random_splits(data_dir, n_splits=5, train_ratio=0.6, val_ratio=0.2, t
         # 학습 데이터 파일 쓰기
         with open(train_txt_path, 'w') as f:
             for img_file, _ in train_samples:
-                img_path = os.path.join('images', img_file)  # 상대 경로 사용
+                img_path = os.path.join(data_dir, 'images', img_file)  # 상대 경로 사용
                 f.write(f"{img_path}\n")
         
         # 검증 데이터 파일 쓰기
         with open(val_txt_path, 'w') as f:
             for img_file, _ in val_samples:
-                img_path = os.path.join('images', img_file)  # 상대 경로 사용
+                img_path = os.path.join(data_dir, 'images', img_file)  # 상대 경로 사용
                 f.write(f"{img_path}\n")
         
         # 테스트 데이터 파일 쓰기
         with open(test_txt_path, 'w') as f:
             for img_file, _ in test_samples:
-                img_path = os.path.join('images', img_file)  # 상대 경로 사용
+                img_path = os.path.join(data_dir, 'images', img_file)  # 상대 경로 사용
                 f.write(f"{img_path}\n")
         
         # YAML 파일 생성
         output_yaml_path = os.path.join(data_dir, f'data_iter_{iter_idx:02d}.yaml')
         yaml_content = {
+            'path': data_dir,
             'train': f'train_iter_{iter_idx:02d}.txt',  # 상대 경로 사용
             'val': f'val_iter_{iter_idx:02d}.txt',      # 상대 경로 사용
             'test': f'test_iter_{iter_idx:02d}.txt',    # 상대 경로 사용
