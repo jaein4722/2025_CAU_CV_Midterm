@@ -1,3 +1,4 @@
+import gc
 import os
 import cv2
 import yaml
@@ -47,6 +48,10 @@ def submission_YOLO12n(yaml_path, output_json_path):
     test_images = get_test_images(data_config)
     results_dict = detect_and_save_bboxes(ex_dict['Model'], test_images)
     save_results_to_file(results_dict, output_json_path)
+    
+    del model
+    gc.collect()
+    torch.cuda.empty_cache()
 
 
 def load_yaml_config(yaml_path):

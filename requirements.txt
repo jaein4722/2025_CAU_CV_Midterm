@@ -12,3 +12,6 @@ scikit-learn==1.6.1
 ipywidgets==8.1.5
 natsort
 shapely
+
+# yolox
+git+https://github.com/Megvii-BaseDetection/YOLOX.git@main#egg=yolox

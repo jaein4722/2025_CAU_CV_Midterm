@@ -7,20 +7,21 @@ import random
 import numpy as np
 from PIL import Image
 from datetime import datetime
-from models import YOLOv9t
+from models import YOGAn
 from utils.ex_dict import update_ex_dict
+from models.YOGAn.pkgs.utils.general import non_max_suppression, scale_coords
 
 
-def submission_YOLOv9t(yaml_path, output_json_path):
+def submission_YOGAn(yaml_path, output_json_path):
     
     ###### can be modified (Only Hyperparameters, which can be modified in demo) ######
-    config = YOLOv9t.ModelConfig()
+    config = YOGAn.ModelConfig()
     data_config = load_yaml_config(yaml_path)
     ex_dict = {}
     ex_dict = update_ex_dict(ex_dict, config, initial=True)
     
     ###### can be modified (Only Models, which can't be modified in demo) ######
-    from ultralytics import YOLO
+    from models.YOGAn import Model as YOGAnModel
     ex_dict['Iteration']  = int(yaml_path.split('.yaml')[0][-2:])
     
     Dataset_Name = yaml_path.split('/')[1]
@@ -37,16 +38,16 @@ def submission_YOLOv9t(yaml_path, output_json_path):
     else:
         model_yaml_path = f'{config.model_name}.yaml'
     
-    model = YOLO(model_yaml_path, verbose=False)
+    model = YOGAnModel(model_yaml_path)
     os.makedirs(config.output_dir, exist_ok=True)
     
     ex_dict['Model Name'] = config.model_name
     ex_dict['Model'] = model
     
-    ex_dict = YOLOv9t.train_model(ex_dict, config)
+    ex_dict = YOGAn.train_model(ex_dict, config)
     
     test_images = get_test_images(data_config)
-    results_dict = detect_and_save_bboxes(ex_dict['Model'], test_images)
+    results_dict = detect_and_save_bboxes(ex_dict['Model'], test_images, config.imgsz, config.device)
     save_results_to_file(results_dict, output_json_path)
     
     del model
@@ -93,28 +94,62 @@ def control_random_seed(seed, pytorch=True):
     except:
         pass
         torch.backends.cudnn.benchmark = False 
+        
 
-
-def detect_and_save_bboxes(model, image_paths):
+def detect_and_save_bboxes(model, image_paths, imgsz, device, conf_thres=0.25, iou_thres=0.45):
+    """
+    model     : YOGAn Model 객체 (nn.Module)
+    image_paths: List[str] – 입력 이미지 파일 경로 리스트
+    imgsz     : int or Tuple[int,int] – 모델에 입력할 정사각(또는 h,w) 크기
+    device    : str – 'cuda:0' or 'cpu'
+    conf_thres: float – confidence threshold
+    iou_thres : float – NMS IoU threshold
+    """
+    model.to(device).eval()
     results_dict = {}
 
+    # ensure tuple
+    if isinstance(imgsz, int):
+        imgsz = (imgsz, imgsz)
+
     for img_path in image_paths:
-        results = model(img_path, verbose=False, task='detect')
+        # 1) 원본 이미지 로드
+        im0 = cv2.imread(img_path)                     # BGR
+        assert im0 is not None, f"Image not found: {img_path}"
+        h0, w0 = im0.shape[:2]
+
+        # 2) 전처리: BGR→RGB, 리사이즈, [0,255]→[0.0,1.0], CHW, 배치차원
+        img = cv2.cvtColor(im0, cv2.COLOR_BGR2RGB)
+        img = cv2.resize(img, imgsz, interpolation=cv2.INTER_LINEAR)
+        img = img.astype(np.float32) / 255.0
+        img_tensor = torch.from_numpy(img).permute(2, 0, 1).unsqueeze(0).to(device)
+
+        # 3) 추론
+        with torch.no_grad():
+            pred = model(img_tensor)[0]  # [num_preds, 5+classes]
+
+        # 4) NMS
+        det = non_max_suppression(pred.unsqueeze(0), conf_thres, iou_thres)[0]
+
+        # 5) 예측 좌표를 원본 크기(h0,w0)로 복원
+        if det is not None and len(det):
+            det[:, :4] = scale_coords(imgsz, det[:, :4], (h0, w0)).round()
+
+        # 6) 결과 포맷팅
         img_results = []
-        for result in results:
-            boxes = result.boxes
-            for i, box in enumerate(boxes):
-                bbox = box.xyxy[0].tolist()
-                confidence = box.conf[0].item()
-                class_id = int(box.cls[0].item())
-                class_name = result.names[class_id]
+        if det is not None:
+            for *xyxy, conf, cls in det.cpu().numpy():
+                x1, y1, x2, y2 = [float(x) for x in xyxy]
+                cls   = int(cls)
                 img_results.append({
-                    'bbox': bbox,  # [x1, y1, x2, y2]
-                    'confidence': confidence,
-                    'class_id': class_id,
-                    'class_name': class_name
+                    'bbox'      : [x1, y1, x2, y2],
+                    'confidence': float(conf),
+                    'class_id'  : cls,
+                    'class_name': model.names[cls],
                 })
+
         results_dict[img_path] = img_results
+
     return results_dict
 
 
