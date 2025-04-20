@@ -12,6 +12,7 @@ from yolox.exp import get_exp               # :contentReference[oaicite:0]{index
 from yolox.core.trainer import Trainer       # :contentReference[oaicite:1]{index=1}
 from yolox.data.data_augment import preproc
 from yolox.utils import postprocess
+from utils.yaml2coco import convert_yaml
 
 from .model_config import ModelConfig
 
@@ -27,10 +28,12 @@ def train_model(ex_dict: dict, config: ModelConfig):
     exp = get_exp(exp_file=None, exp_name=config.exp_type)
     exp = config.apply_to_exp(exp=exp, ex_dict=ex_dict)
     
+    dataset_name = ex_dict['Dataset Name']
+    
     # symbolic link 설정
-    img_src = Path("Datasets/airplane/images")
+    img_src = Path(f"Datasets/{dataset_name}/images")
     for split in ("train2017", "val2017"):
-        dst = Path("Datasets/airplane")/split/"images"
+        dst = Path(f"Datasets/{dataset_name}")/split/"images"
         if dst.exists():
             # 이미 폴더나 링크가 있으면 삭제 후 재복사
             if dst.is_symlink() or dst.is_file():
@@ -39,6 +42,14 @@ def train_model(ex_dict: dict, config: ModelConfig):
                 shutil.rmtree(dst)
         dst.parent.mkdir(parents=True, exist_ok=True)
         shutil.copytree(img_src, dst)
+        
+    root = Path(f"Datasets/{dataset_name}").resolve()
+    out  = root / "annotations"
+    ymls = sorted(root.glob("data_iter_*.yaml"))
+    if not ymls:
+        print("⚠️  매칭되는 YAML이 없습니다."); return
+    for y in ymls:
+        convert_yaml(y, out)
 
     # 출력 디렉터리 준비
     save_dir = Path(config.output_dir) / "train"

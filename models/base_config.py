@@ -25,7 +25,7 @@ class BaseConfig:
             os.makedirs(BaseConfig._output_dir, exist_ok=True)
         self.output_dir = BaseConfig._output_dir
         
-        self.dataset_names = ['airplane']
+        self.dataset_name = 'airplane'
         self.model_name = None  # 개별 Config에서 지정
         self.exist_ok = False
         self.custom_yaml_path = None

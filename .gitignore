@@ -116,3 +116,6 @@ __legacy_YOLOs/
 output/*
 !output/_example/
 !output/_example/**
+optuna_runs/
+nohup.out
+*.db
