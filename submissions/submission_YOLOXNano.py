@@ -25,7 +25,7 @@ def submission_YOLOXNano(yaml_path, output_json_path, config = None):
         'depthwise': True,
         'epochs': 20,
         'batch_size': 16,
-        'basic_lr_per_img': 0.01 / hyperparams['batch'],
+        'basic_lr_per_img': 0.01 / 16,
         'momentum': 0.9,
         'weight_decay': 5e-4,
         'scheduler': 'yoloxwarmcos',
