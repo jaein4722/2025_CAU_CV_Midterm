@@ -11,10 +11,27 @@ from models import YOLOv9t
 from utils.ex_dict import update_ex_dict
 
 
-def submission_YOLOv9t(yaml_path, output_json_path):
+def submission_YOLOv9t(yaml_path, output_json_path, config = None):
     
     ###### can be modified (Only Hyperparameters, which can be modified in demo) ######
-    config = YOLOv9t.ModelConfig()
+    hyperparams = {
+        'model_name': 'yolov9t',
+        'epochs': 20,
+        'batch': 16,
+        'lr0': 0.0025,
+        'momentum': 0.9,
+        'weight_decay': 1e-4,
+        'optimizer': 'AdamW',
+        'dfl': 1.3,
+        'cls': 0.25,
+        'box': 5.0,
+        'close_mosaic': 2,
+        'cos_lr': True,
+        'custom_yaml_path': None,
+    }
+    
+    if config is None:
+        config = YOLOv9t.ModelConfig(**hyperparams)
     data_config = load_yaml_config(yaml_path)
     ex_dict = {}
     ex_dict = update_ex_dict(ex_dict, config, initial=True)

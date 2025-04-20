@@ -12,10 +12,27 @@ from utils.ex_dict import update_ex_dict
 from models.YOGAn.pkgs.utils.general import non_max_suppression, scale_coords
 
 
-def submission_YOGAn(yaml_path, output_json_path):
+def submission_YOGAn(yaml_path, output_json_path, config = None):
     
     ###### can be modified (Only Hyperparameters, which can be modified in demo) ######
-    config = YOGAn.ModelConfig()
+    hyperparams = {
+        'model_name': 'yogan',
+        'epochs': 20,
+        'batch': 16,
+        'lr0': 0.01,
+        'momentum': 0.9,
+        'weight_decay': 1e-4,
+        'optimizer': 'AdamW',
+        'dfl': 1.5,
+        'cls': 0.3,
+        'box': 5.0,
+        'close_mosaic': 2,
+        'cos_lr': True,
+        'custom_yaml_path': "models/YOGAn/pkgs/yoga_models/YOGA-n.yaml",
+    }
+    
+    if config is None:
+        config = YOGAn.ModelConfig(**hyperparams)
     data_config = load_yaml_config(yaml_path)
     ex_dict = {}
     ex_dict = update_ex_dict(ex_dict, config, initial=True)

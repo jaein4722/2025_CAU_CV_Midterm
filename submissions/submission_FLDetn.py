@@ -21,7 +21,24 @@ globals()['CSNeck3in'] = CSNeck3in
 def submission_FLDetn(yaml_path, output_json_path):
     
     ###### can be modified (Only Hyperparameters, which can be modified in demo) ######
-    config = FLDetn.ModelConfig()
+    hyperparams = {
+        'model_name': 'FLDetn',
+        'epochs': 20,
+        'batch': 16,
+        'lr0': 0.003,
+        'momentum': 0.9,
+        'weight_decay': 1e-4,
+        'optimizer': 'AdamW',
+        'dfl': 1.5,
+        'cls': 0.3,
+        'box': 5.0,
+        'close_mosaic': 2,
+        'cos_lr': True,
+        'custom_yaml_path': 'models/FLDetn/pkgs/ultralytics/cfg/models/FLDet/FLDet-N.yaml',
+    }
+    
+    if config is None:
+        config = FLDetn.ModelConfig(**hyperparams)
     data_config = load_yaml_config(yaml_path)
     ex_dict = {}
     ex_dict = update_ex_dict(ex_dict, config, initial=True)

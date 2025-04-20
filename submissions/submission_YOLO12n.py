@@ -11,10 +11,27 @@ from models import YOLO12n
 from utils.ex_dict import update_ex_dict
 
 
-def submission_YOLO12n(yaml_path, output_json_path):
+def submission_YOLO12n(yaml_path, output_json_path, config = None):
     
     ###### can be modified (Only Hyperparameters, which can be modified in demo) ######
-    config = YOLO12n.ModelConfig()
+    hyperparams = {
+        'model_name': 'yolo12n',
+        'epochs': 20,
+        'batch': 16,
+        'lr0': 0.001,
+        'momentum': 0.9,
+        'weight_decay': 1e-4,
+        'optimizer': 'AdamW',
+        'dfl': 1.0,
+        'cls': 0.2,
+        'box': 4.5,
+        'close_mosaic': 2,
+        'cos_lr': True,
+        'custom_yaml_path': None,
+    }
+    
+    if config is None:
+        config = YOLO12n.ModelConfig(**hyperparams)
     data_config = load_yaml_config(yaml_path)
     ex_dict = {}
     ex_dict = update_ex_dict(ex_dict, config, initial=True)

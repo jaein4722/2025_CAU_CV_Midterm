@@ -1,7 +1,7 @@
 from ..base_config import BaseConfig
 
 class ModelConfig(BaseConfig):
-    def __init__(self):
+    def __init__(self, **kwargs):
         super().__init__()
         self.model_name = 'FLDetn'
         self.lr0 = 0.003
@@ -10,3 +10,8 @@ class ModelConfig(BaseConfig):
         self.box = 5.0
         
         self.custom_yaml_path = 'models/FLDetn/pkgs/ultralytics/cfg/models/FLDet/FLDet-N.yaml'
+        
+        for k, v in kwargs.items():
+            if not hasattr(self, k):
+                raise AttributeError(f"ModelConfig has no attribute '{k}'")
+            setattr(self, k, v)

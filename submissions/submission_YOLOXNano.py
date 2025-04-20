@@ -15,10 +15,25 @@ import torch
 from models import YOLOXNano
 from utils.ex_dict import update_ex_dict
 
-def submission_YOLOXNano(yaml_path, output_json_path):
+def submission_YOLOXNano(yaml_path, output_json_path, config = None):
 
     ###### can be modified (Only Hyperparameters, which can be modified in demo) ######
-    config = YOLOXNano.ModelConfig()
+    hyperparams = {
+        'model_name': 'yoloxnano',
+        'depth': 0.56,
+        'width': 0.50,
+        'depthwise': True,
+        'epochs': 20,
+        'batch_size': 16,
+        'basic_lr_per_img': 0.01 / hyperparams['batch'],
+        'momentum': 0.9,
+        'weight_decay': 5e-4,
+        'scheduler': 'yoloxwarmcos',
+        'no_aug_epochs': 2,
+    }
+    
+    if config is None:
+        config = YOLOXNano.ModelConfig(**hyperparams)
     data_config = load_yaml_config(yaml_path)
     ex_dict = {}
     ex_dict = update_ex_dict(ex_dict, config, initial=True)

@@ -3,7 +3,7 @@ import os
 import yaml
 
 class ModelConfig(BaseConfig):
-    def __init__(self):
+    def __init__(self, **kwargs):
         super().__init__()
         self.model_name = 'yogan'
         self.lr0 = 0.01
@@ -12,6 +12,11 @@ class ModelConfig(BaseConfig):
         self.box = 5.0
         
         self.custom_yaml_path = "models/YOGAn/pkgs/yoga_models/YOGA-n.yaml" # "models/YOLO11n/yolo11n_custom.yaml"
+        
+        for k, v in kwargs.items():
+            if not hasattr(self, k):
+                raise AttributeError(f"ModelConfig has no attribute '{k}'")
+            setattr(self, k, v)
         
     def convert_to_yogan_format(self, ex_dict: dict, name: str):
 
