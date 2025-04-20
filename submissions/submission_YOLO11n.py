@@ -31,7 +31,8 @@ def submission_YOLO11n(yaml_path, output_json_path, config = None):
     }
     
     if config is None:
-        config = YOLO11n.ModelConfig(**hyperparams)
+        config = YOLO11n.ModelConfig()
+    config.update_from_dict(hyperparams)
     data_config = load_yaml_config(yaml_path)
     ex_dict = {}
     ex_dict = update_ex_dict(ex_dict, config, initial=True)

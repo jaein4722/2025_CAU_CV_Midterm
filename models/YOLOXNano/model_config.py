@@ -6,7 +6,7 @@ class ModelConfig(BaseConfig):
     YOLOX‑Nano 전용 하이퍼파라미터를 담는다.
     BaseConfig에서 공유하는 experiment_time, output_dir 등은 그대로 상속.
     """
-    def __init__(self, **kwargs):
+    def __init__(self):
         super().__init__()
         self.model_name = "yoloxnano"
         self.exp_type   = "yolox_nano"      # get_exp(name=...) 인자
@@ -60,10 +60,13 @@ class ModelConfig(BaseConfig):
         
         self.seed = 42
         
-        for k, v in kwargs.items():
+        
+    def update_from_dict(self, params: dict):
+        for k, v in params.items():
             if not hasattr(self, k):
                 raise AttributeError(f"ModelConfig has no attribute '{k}'")
             setattr(self, k, v)
+    
     
     def apply_to_exp(self, exp, ex_dict: dict):
         """

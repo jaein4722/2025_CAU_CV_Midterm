@@ -32,7 +32,8 @@ def submission_YOGAn(yaml_path, output_json_path, config = None):
     }
     
     if config is None:
-        config = YOGAn.ModelConfig(**hyperparams)
+        config = YOGAn.ModelConfig()
+    config.update_from_dict(hyperparams)
     data_config = load_yaml_config(yaml_path)
     ex_dict = {}
     ex_dict = update_ex_dict(ex_dict, config, initial=True)

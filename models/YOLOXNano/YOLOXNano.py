@@ -30,26 +30,27 @@ def train_model(ex_dict: dict, config: ModelConfig):
     
     dataset_name = ex_dict['Dataset Name']
     
-    # symbolic link 설정
-    img_src = Path(f"Datasets/{dataset_name}/images")
-    for split in ("train2017", "val2017"):
-        dst = Path(f"Datasets/{dataset_name}")/split/"images"
-        if dst.exists():
-            # 이미 폴더나 링크가 있으면 삭제 후 재복사
-            if dst.is_symlink() or dst.is_file():
-                dst.unlink()
-            else:
-                shutil.rmtree(dst)
-        dst.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copytree(img_src, dst)
-        
-    root = Path(f"Datasets/{dataset_name}").resolve()
-    out  = root / "annotations"
-    ymls = sorted(root.glob("data_iter_*.yaml"))
-    if not ymls:
-        print("⚠️  매칭되는 YAML이 없습니다."); return
-    for y in ymls:
-        convert_yaml(y, out)
+    if ex_dict['Iteration'] == 1:
+        # symbolic link 설정
+        img_src = Path(f"Datasets/{dataset_name}/images")
+        for split in ("train2017", "val2017"):
+            dst = Path(f"Datasets/{dataset_name}")/split/"images"
+            if dst.exists():
+                # 이미 폴더나 링크가 있으면 삭제 후 재복사
+                if dst.is_symlink() or dst.is_file():
+                    dst.unlink()
+                else:
+                    shutil.rmtree(dst)
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copytree(img_src, dst)
+            
+        root = Path(f"Datasets/{dataset_name}").resolve()
+        out  = root / "annotations"
+        ymls = sorted(root.glob("data_iter_*.yaml"))
+        if not ymls:
+            print("⚠️  매칭되는 YAML이 없습니다."); return
+        for y in ymls:
+            convert_yaml(y, out)
 
     # 출력 디렉터리 준비
     save_dir = Path(config.output_dir) / "train"

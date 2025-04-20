@@ -18,7 +18,7 @@ globals()['ECM'] = ECM
 globals()['CSNeck3in'] = CSNeck3in
 
 
-def submission_FLDetn(yaml_path, output_json_path):
+def submission_FLDetn(yaml_path, output_json_path, config = None):
     
     ###### can be modified (Only Hyperparameters, which can be modified in demo) ######
     hyperparams = {
@@ -38,7 +38,8 @@ def submission_FLDetn(yaml_path, output_json_path):
     }
     
     if config is None:
-        config = FLDetn.ModelConfig(**hyperparams)
+        config = FLDetn.ModelConfig()
+    config.update_from_dict(hyperparams)
     data_config = load_yaml_config(yaml_path)
     ex_dict = {}
     ex_dict = update_ex_dict(ex_dict, config, initial=True)

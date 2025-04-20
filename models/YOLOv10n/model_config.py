@@ -1,7 +1,7 @@
 from ..base_config import BaseConfig
 
 class ModelConfig(BaseConfig):
-    def __init__(self, **kwargs):
+    def __init__(self):
         super().__init__()
         self.model_name = 'yolov10n'
         self.lr0 = 0.002
@@ -11,7 +11,8 @@ class ModelConfig(BaseConfig):
         
         self.custom_yaml_path = None # "models/YOLOv10n/yolov10n_custom.yaml"
         
-        for k, v in kwargs.items():
+    def update_from_dict(self, params: dict):
+        for k, v in params.items():
             if not hasattr(self, k):
                 raise AttributeError(f"ModelConfig has no attribute '{k}'")
             setattr(self, k, v)

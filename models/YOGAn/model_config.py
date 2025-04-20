@@ -3,7 +3,7 @@ import os
 import yaml
 
 class ModelConfig(BaseConfig):
-    def __init__(self, **kwargs):
+    def __init__(self):
         super().__init__()
         self.model_name = 'yogan'
         self.lr0 = 0.01
@@ -13,7 +13,8 @@ class ModelConfig(BaseConfig):
         
         self.custom_yaml_path = "models/YOGAn/pkgs/yoga_models/YOGA-n.yaml" # "models/YOLO11n/yolo11n_custom.yaml"
         
-        for k, v in kwargs.items():
+    def update_from_dict(self, params: dict):
+        for k, v in params.items():
             if not hasattr(self, k):
                 raise AttributeError(f"ModelConfig has no attribute '{k}'")
             setattr(self, k, v)
