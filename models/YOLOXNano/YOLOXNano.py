@@ -8,10 +8,10 @@ from pathlib import Path
 import shutil
 from tqdm import tqdm
 
-from yolox.exp import get_exp               # :contentReference[oaicite:0]{index=0}
-from yolox.core.trainer import Trainer       # :contentReference[oaicite:1]{index=1}
-from yolox.data.data_augment import preproc
-from yolox.utils import postprocess
+from models.YOLOXNano.pkgs.yolox.exp import get_exp               # :contentReference[oaicite:0]{index=0}
+from models.YOLOXNano.pkgs.yolox.core.trainer import Trainer       # :contentReference[oaicite:1]{index=1}
+from models.YOLOXNano.pkgs.yolox.data.data_augment import preproc
+from models.YOLOXNano.pkgs.yolox.utils import postprocess
 from utils.yaml2coco import convert_yaml
 
 from .model_config import ModelConfig
