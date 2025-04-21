@@ -9,6 +9,7 @@ from PIL import Image
 from datetime import datetime
 from models import YOLOv8n
 from utils.ex_dict import update_ex_dict
+from utils.offline_augmentation import horizontal_flip_dataset
 
 
 def submission_YOLOv8n(yaml_path, output_json_path, config = None, overwrite_dict: dict = None):
@@ -18,17 +19,18 @@ def submission_YOLOv8n(yaml_path, output_json_path, config = None, overwrite_dic
         'model_name': 'yolov8n',
         'epochs': 20,
         'batch': 16,
-        'lr0': 0.003,
-        'momentum': 0.9,
-        'weight_decay': 1e-4,
+        'lr0': 0.01,
+        'momentum': 0.937,
+        'weight_decay': 5e-4,
         'optimizer': 'AdamW',
         'dfl': 1.5,
-        'cls': 0.3,
-        'box': 5.0,
+        'cls': 0.5,
+        'box': 7.5,
         'close_mosaic': 2,
         'cos_lr': True,
         'custom_yaml_path': None,
     }
+    conf = 0.25
     
     if config is None:
         config = YOLOv8n.ModelConfig()
@@ -60,6 +62,8 @@ def submission_YOLOv8n(yaml_path, output_json_path, config = None, overwrite_dic
     else:
         model_yaml_path = f'{config.model_name}.yaml'
     
+    horizontal_flip_dataset(Dataset_Name)
+    
     model = YOLO(model_yaml_path, verbose=False)
     os.makedirs(config.output_dir, exist_ok=True)
     
@@ -69,7 +73,7 @@ def submission_YOLOv8n(yaml_path, output_json_path, config = None, overwrite_dic
     ex_dict = YOLOv8n.train_model(ex_dict, config)
     
     test_images = get_test_images(data_config)
-    results_dict = detect_and_save_bboxes(ex_dict['Model'], test_images)
+    results_dict = detect_and_save_bboxes(ex_dict['Model'], test_images, conf)
     save_results_to_file(results_dict, output_json_path)
     
     del model
@@ -118,11 +122,11 @@ def control_random_seed(seed, pytorch=True):
         torch.backends.cudnn.benchmark = False 
 
 
-def detect_and_save_bboxes(model, image_paths):
+def detect_and_save_bboxes(model, image_paths, conf):
     results_dict = {}
 
     for img_path in image_paths:
-        results = model(img_path, verbose=False, task='detect')
+        results = model(img_path, verbose=False, conf=conf, task='detect')
         img_results = []
         for result in results:
             boxes = result.boxes

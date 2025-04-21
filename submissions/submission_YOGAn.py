@@ -10,6 +10,7 @@ from datetime import datetime
 from models import YOGAn
 from utils.ex_dict import update_ex_dict
 from models.YOGAn.pkgs.utils.general import non_max_suppression, scale_coords
+from utils.offline_augmentation import horizontal_flip_dataset
 
 
 def submission_YOGAn(yaml_path, output_json_path, config = None):
@@ -19,7 +20,7 @@ def submission_YOGAn(yaml_path, output_json_path, config = None):
         'model_name': 'yogan',
         'epochs': 20,
         'batch': 16,
-        'lr0': 0.1,
+        'lr0': 0.01,
         'momentum': 0.937,
         'weight_decay': 5e-4,
         'optimizer': 'AdamW',
@@ -27,6 +28,8 @@ def submission_YOGAn(yaml_path, output_json_path, config = None):
         'obj': 1.0, 
         'custom_yaml_path': "models/YOGAn/pkgs/yoga_models/YOGA-n.yaml",
     }
+    
+    conf = 0.25
     
     if config is None:
         config = YOGAn.ModelConfig()
@@ -62,7 +65,7 @@ def submission_YOGAn(yaml_path, output_json_path, config = None):
     ex_dict = YOGAn.train_model(ex_dict, config)
     
     test_images = get_test_images(data_config)
-    results_dict = detect_and_save_bboxes(ex_dict['Model'], test_images, config.imgsz, config.device)
+    results_dict = detect_and_save_bboxes(ex_dict['Model'], test_images, config.imgsz, config.device, conf)
     save_results_to_file(results_dict, output_json_path)
     
     del model

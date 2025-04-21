@@ -9,6 +9,7 @@ from PIL import Image
 from datetime import datetime
 from models import HyperYOLOt
 from utils.ex_dict import update_ex_dict
+from utils.offline_augmentation import horizontal_flip_dataset
 
 
 def submission_HyperYOLOt(yaml_path, output_json_path, config = None):
@@ -18,17 +19,19 @@ def submission_HyperYOLOt(yaml_path, output_json_path, config = None):
         'model_name': 'HyperYOLOt',
         'epochs': 20,
         'batch': 16,
-        'lr0': 0.003,
-        'momentum': 0.9,
-        'weight_decay': 1e-4,
+        'lr0': 0.01,
+        'momentum': 0.937,
+        'weight_decay': 5e-4,
         'optimizer': 'AdamW',
         'dfl': 1.5,
-        'cls': 0.3,
-        'box': 5.0,
+        'cls': 0.5,
+        'box': 7.5,
         'close_mosaic': 2,
         'cos_lr': True,
         'custom_yaml_path': 'models/HyperYOLOt/pkgs/hyper_ultralytics/cfg/models/hyper-yolo/hyper-yolot.yaml',
     }
+    
+    conf = 0.25
     
     if config is None:
         config = HyperYOLOt.ModelConfig()
@@ -64,7 +67,7 @@ def submission_HyperYOLOt(yaml_path, output_json_path, config = None):
     ex_dict = HyperYOLOt.train_model(ex_dict, config)
     
     test_images = get_test_images(data_config)
-    results_dict = detect_and_save_bboxes(ex_dict['Model'], test_images)
+    results_dict = detect_and_save_bboxes(ex_dict['Model'], test_images, conf)
     save_results_to_file(results_dict, output_json_path)
     
     del model
@@ -113,11 +116,11 @@ def control_random_seed(seed, pytorch=True):
         torch.backends.cudnn.benchmark = False 
 
 
-def detect_and_save_bboxes(model, image_paths):
+def detect_and_save_bboxes(model, image_paths, conf):
     results_dict = {}
 
     for img_path in image_paths:
-        results = model(img_path, verbose=False, task='detect')
+        results = model(img_path, verbose=False, conf=conf, task='detect')
         img_results = []
         for result in results:
             boxes = result.boxes

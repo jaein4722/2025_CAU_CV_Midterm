@@ -20,8 +20,8 @@ def submission_YOLOXNano(yaml_path, output_json_path, config = None):
     ###### can be modified (Only Hyperparameters, which can be modified in demo) ######
     hyperparams = {
         'model_name': 'yoloxnano',
-        'depth': 0.56,
-        'width': 0.50,
+        'depth': 0.33,
+        'width': 0.25,
         'depthwise': True,
         'epochs': 20,
         'batch_size': 16,
