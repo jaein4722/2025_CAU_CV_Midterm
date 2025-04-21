@@ -9,7 +9,7 @@ from PIL import Image
 from datetime import datetime
 from models import FLDetn
 from utils.ex_dict import update_ex_dict
-from utils.offline_augmentation import horizontal_flip_dataset
+from utils.offline_augmentation import augment_dataset
 
 
 from models.FLDetn.pkgs.ultralytics.nn.modules import IEPR, ECM, CSNeck3in
@@ -58,6 +58,7 @@ def submission_FLDetn(yaml_path, output_json_path, config = None):
     ex_dict['Number of Classes'] = data_config['nc']
     ex_dict['Class Names'] = data_config['names']
     
+    augment_dataset(Dataset_Name)
     control_random_seed(42)
     
     if config.custom_yaml_path is not None:

@@ -10,7 +10,7 @@ from datetime import datetime
 from models import LightweightOB
 from utils.ex_dict import update_ex_dict
 from models.LightweightOB.pkgs.utils.general import non_max_suppression, scale_coords
-from utils.offline_augmentation import horizontal_flip_dataset
+from utils.offline_augmentation import augment_dataset
 
 
 def submission_LightweightOB(yaml_path, output_json_path, config = None):
@@ -49,6 +49,7 @@ def submission_LightweightOB(yaml_path, output_json_path, config = None):
     ex_dict['Number of Classes'] = data_config['nc']
     ex_dict['Class Names'] = data_config['names']
     
+    augment_dataset(Dataset_Name)
     control_random_seed(42)
     
     if config.custom_yaml_path is not None:

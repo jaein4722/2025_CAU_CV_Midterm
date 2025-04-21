@@ -14,6 +14,7 @@ import torch
 
 from models import YOLOXNano
 from utils.ex_dict import update_ex_dict
+from utils.offline_augmentation import augment_dataset
 
 def submission_YOLOXNano(yaml_path, output_json_path, config = None):
 
@@ -47,7 +48,8 @@ def submission_YOLOXNano(yaml_path, output_json_path, config = None):
     ex_dict['Data Config'] = yaml_path
     ex_dict['Number of Classes'] = data_config['nc']
     ex_dict['Class Names'] = data_config['names']
-
+    
+    augment_dataset(dataset_name)
     control_random_seed(42)
 
     # ────────── 모델·경로 설정 ──────────

@@ -42,7 +42,8 @@ def train_model(ex_dict: dict, config: ModelConfig):
                 else:
                     shutil.rmtree(dst)
             dst.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copytree(img_src, dst)
+            rel = os.path.relpath(img_src, dst.parent)
+            os.symlink(rel, dst, target_is_directory=True)
             
         root = Path(f"Datasets/{dataset_name}").resolve()
         out  = root / "annotations"

@@ -9,7 +9,7 @@ from PIL import Image
 from datetime import datetime
 from models import YOLOv8n
 from utils.ex_dict import update_ex_dict
-from utils.offline_augmentation import horizontal_flip_dataset
+from utils.offline_augmentation import augment_dataset
 
 
 def submission_YOLOv8n(yaml_path, output_json_path, config = None, overwrite_dict: dict = None):
@@ -55,14 +55,13 @@ def submission_YOLOv8n(yaml_path, output_json_path, config = None, overwrite_dic
     ex_dict['Number of Classes'] = data_config['nc']
     ex_dict['Class Names'] = data_config['names']
     
+    augment_dataset(Dataset_Name)
     control_random_seed(42)
     
     if config.custom_yaml_path is not None:
         model_yaml_path = config.custom_yaml_path
     else:
         model_yaml_path = f'{config.model_name}.yaml'
-    
-    horizontal_flip_dataset(Dataset_Name)
     
     model = YOLO(model_yaml_path, verbose=False)
     os.makedirs(config.output_dir, exist_ok=True)
