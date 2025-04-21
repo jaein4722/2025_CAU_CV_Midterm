@@ -7,7 +7,7 @@ from pathlib import Path
 from types import SimpleNamespace
 from typing import Dict, List, Union
 import pdb
-from hyper_ultralytics.utils import (ASSETS, DEFAULT_CFG, DEFAULT_CFG_DICT, DEFAULT_CFG_PATH, LOGGER, RANK, ROOT, RUNS_DIR,
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import (ASSETS, DEFAULT_CFG, DEFAULT_CFG_DICT, DEFAULT_CFG_PATH, LOGGER, RANK, ROOT, RUNS_DIR,
                                SETTINGS, SETTINGS_YAML, TESTS_RUNNING, IterableSimpleNamespace, __version__, checks,
                                colorstr, deprecation_warn, yaml_load, yaml_print)
 
@@ -150,7 +150,7 @@ def get_save_dir(args, name=None):
     if getattr(args, 'save_dir', None):
         save_dir = args.save_dir
     else:
-        from hyper_ultralytics.utils.files import increment_path
+        from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.files import increment_path
 
         project = args.project or (ROOT.parent / 'tests/tmp/runs' if TESTS_RUNNING else RUNS_DIR) / args.task
         name = name or args.name or f'{args.mode}'
@@ -245,7 +245,7 @@ def handle_yolo_hub(args: List[str]) -> None:
         python my_script.py hub login your_api_key
         ```
     """
-    from hyper_ultralytics import hub
+    from models.HyperYOLOt.pkgs.hyper_ultralytics import hub
 
     if args[0] == 'login':
         key = args[1] if len(args) > 1 else ''
@@ -409,16 +409,16 @@ def entrypoint(debug=''):
     overrides['model'] = model
     stem = Path(model).stem.lower()
     if 'rtdetr' in stem:  # guess architecture
-        from hyper_ultralytics import RTDETR
+        from models.HyperYOLOt.pkgs.hyper_ultralytics import RTDETR
         model = RTDETR(model)  # no task argument
     elif 'fastsam' in stem:
-        from hyper_ultralytics import FastSAM
+        from models.HyperYOLOt.pkgs.hyper_ultralytics import FastSAM
         model = FastSAM(model)
     elif 'sam' in stem:
-        from hyper_ultralytics import SAM
+        from models.HyperYOLOt.pkgs.hyper_ultralytics import SAM
         model = SAM(model)
     else:
-        from hyper_ultralytics import YOLO
+        from models.HyperYOLOt.pkgs.hyper_ultralytics import YOLO
         model = YOLO(model, task=task)
     if isinstance(overrides.get('pretrained'), str):
         model.load(overrides['pretrained'])

@@ -4,14 +4,14 @@ import numpy as np
 import scipy
 from scipy.spatial.distance import cdist
 
-from hyper_ultralytics.utils.metrics import bbox_ioa
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.metrics import bbox_ioa
 
 try:
     import lap  # for linear_assignment
 
     assert lap.__version__  # verify package is not directory
 except (ImportError, AssertionError, AttributeError):
-    from hyper_ultralytics.utils.checks import check_requirements
+    from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.checks import check_requirements
 
     check_requirements('lapx>=0.5.2')  # update to lap package from https://github.com/rathaROG/lapx
     import lap

@@ -2,11 +2,11 @@
 
 import torch
 
-from hyper_ultralytics.data import ClassificationDataset, build_dataloader
-from hyper_ultralytics.engine.validator import BaseValidator
-from hyper_ultralytics.utils import LOGGER
-from hyper_ultralytics.utils.metrics import ClassifyMetrics, ConfusionMatrix
-from hyper_ultralytics.utils.plotting import plot_images
+from models.HyperYOLOt.pkgs.hyper_ultralytics.data import ClassificationDataset, build_dataloader
+from models.HyperYOLOt.pkgs.hyper_ultralytics.engine.validator import BaseValidator
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import LOGGER
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.metrics import ClassifyMetrics, ConfusionMatrix
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.plotting import plot_images
 
 
 class ClassificationValidator(BaseValidator):
@@ -18,7 +18,7 @@ class ClassificationValidator(BaseValidator):
 
     Example:
         ```python
-        from hyper_ultralytics.models.yolo.classify import ClassificationValidator
+        from models.HyperYOLOt.pkgs.hyper_ultralytics.models.yolo.classify import ClassificationValidator
 
         args = dict(model='yolov8n-cls.pt', data='imagenet10')
         validator = ClassificationValidator(args=args)

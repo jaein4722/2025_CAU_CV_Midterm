@@ -2,10 +2,10 @@
 
 import requests
 
-from hyper_ultralytics.data.utils import HUBDatasetStats
-from hyper_ultralytics.hub.auth import Auth
-from hyper_ultralytics.hub.utils import HUB_API_ROOT, HUB_WEB_ROOT, PREFIX
-from hyper_ultralytics.utils import LOGGER, SETTINGS
+from models.HyperYOLOt.pkgs.hyper_ultralytics.data.utils import HUBDatasetStats
+from models.HyperYOLOt.pkgs.hyper_ultralytics.hub.auth import Auth
+from models.HyperYOLOt.pkgs.hyper_ultralytics.hub.utils import HUB_API_ROOT, HUB_WEB_ROOT, PREFIX
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import LOGGER, SETTINGS
 
 
 def login(api_key=''):
@@ -17,7 +17,7 @@ def login(api_key=''):
 
     Example:
         ```python
-        from hyper_ultralytics import hub
+        from models.HyperYOLOt.pkgs.hyper_ultralytics import hub
 
         hub.login('API_KEY')
         ```
@@ -31,7 +31,7 @@ def logout():
 
     Example:
         ```python
-        from hyper_ultralytics import hub
+        from models.HyperYOLOt.pkgs.hyper_ultralytics import hub
 
         hub.logout()
         ```
@@ -52,7 +52,7 @@ def reset_model(model_id=''):
 
 def export_fmts_hub():
     """Returns a list of HUB-supported export formats."""
-    from hyper_ultralytics.engine.exporter import export_formats
+    from models.HyperYOLOt.pkgs.hyper_ultralytics.engine.exporter import export_formats
     return list(export_formats()['Argument'][1:]) + ['ultralytics_tflite', 'ultralytics_coreml']
 
 
@@ -89,7 +89,7 @@ def check_dataset(path='', task='detect'):
 
     Example:
         ```python
-        from hyper_ultralytics.hub import check_dataset
+        from models.HyperYOLOt.pkgs.hyper_ultralytics.hub import check_dataset
 
         check_dataset('path/to/coco8.zip', task='detect')  # detect dataset
         check_dataset('path/to/coco8-seg.zip', task='segment')  # segment dataset

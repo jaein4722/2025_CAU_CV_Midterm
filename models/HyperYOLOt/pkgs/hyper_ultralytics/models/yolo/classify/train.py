@@ -3,13 +3,13 @@
 import torch
 import torchvision
 
-from hyper_ultralytics.data import ClassificationDataset, build_dataloader
-from hyper_ultralytics.engine.trainer import BaseTrainer
-from hyper_ultralytics.models import yolo
-from hyper_ultralytics.nn.tasks import ClassificationModel, attempt_load_one_weight
-from hyper_ultralytics.utils import DEFAULT_CFG, LOGGER, RANK, colorstr
-from hyper_ultralytics.utils.plotting import plot_images, plot_results
-from hyper_ultralytics.utils.torch_utils import is_parallel, strip_optimizer, torch_distributed_zero_first
+from models.HyperYOLOt.pkgs.hyper_ultralytics.data import ClassificationDataset, build_dataloader
+from models.HyperYOLOt.pkgs.hyper_ultralytics.engine.trainer import BaseTrainer
+from models.HyperYOLOt.pkgs.hyper_ultralytics.models import yolo
+from models.HyperYOLOt.pkgs.hyper_ultralytics.nn.tasks import ClassificationModel, attempt_load_one_weight
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import DEFAULT_CFG, LOGGER, RANK, colorstr
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.plotting import plot_images, plot_results
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.torch_utils import is_parallel, strip_optimizer, torch_distributed_zero_first
 
 
 class ClassificationTrainer(BaseTrainer):
@@ -21,7 +21,7 @@ class ClassificationTrainer(BaseTrainer):
 
     Example:
         ```python
-        from hyper_ultralytics.models.yolo.classify import ClassificationTrainer
+        from models.HyperYOLOt.pkgs.hyper_ultralytics.models.yolo.classify import ClassificationTrainer
 
         args = dict(model='yolov8n-cls.pt', data='imagenet10', epochs=3)
         trainer = ClassificationTrainer(overrides=args)

@@ -20,14 +20,15 @@ SubmissionFunction = submission_YOLOv8n
 DATASET_NAME       = "airplane"
 JSON_DIR           = os.path.join(ModelConfig.get_output_dir().replace('output', 'optuna_runs'), "json")
 LABELS_DIR         = f"Datasets/{DATASET_NAME}/labels"
+TOTAL_TRIALS       = 10
 os.makedirs(JSON_DIR, exist_ok=True)
 
 
 def sample_params(trial: optuna.Trial):
     return {
-        "lr":           trial.suggest_loguniform("lr", 1e-5, 1e-1),
-        "weight_decay": trial.suggest_loguniform("weight_decay", 1e-6, 1e-2),
-        "momentum":     trial.suggest_uniform("momentum", 0.5, 0.99),
+        "lr":           trial.suggest_float("lr", 1e-5, 1e-2),
+        "weight_decay": trial.suggest_float("weight_decay", 1e-5, 1e-3),
+        "momentum":     trial.suggest_float("momentum", 0.5, 0.99),
         # depth_mult, width_mult 등을 추가 가능
     }
 
@@ -39,6 +40,12 @@ def objective(trial: optuna.Trial) -> float:
     cfg.weight_decay  = params["weight_decay"]
     cfg.momentum      = params["momentum"]
     cfg.output_dir = cfg.output_dir.replace('output', 'optuna_runs')
+    
+    overwrite_dict = {
+        "lr0": cfg.lr0,
+        "weight_decay": cfg.weight_decay,
+        "momentum": cfg.momentum
+    }
 
     # 2) 모든 split에 대해 submission → eval_and_vis
     iou_list = []
@@ -51,7 +58,7 @@ def objective(trial: optuna.Trial) -> float:
         image_level_result_path = os.path.join(JSON_DIR,
                           f"{ex_time}_{MODEL_NAME}_Iter_{split}_image_level_results.json")
         
-        SubmissionFunction(yaml_path, json_path, config = cfg)
+        SubmissionFunction(yaml_path, json_path, cfg, overwrite_dict)
 
         # ── eval_and_vis 로 mask‑IoU 계산 ──
         stats = eval_and_vis(
@@ -76,7 +83,14 @@ if __name__ == "__main__":
         load_if_exists=True,
         pruner=optuna.pruners.MedianPruner(),
     )
-    study.optimize(objective, n_trials=10)
+    done = len(study.trials)                          # 이미 수행된 trial 수
+    remaining = TOTAL_TRIALS - done                   
+
+    if remaining > 0:
+        print(f"▶ {done} trials done, remaining {remaining}. 실행합니다.")
+        study.optimize(objective, n_trials=remaining)
+    else:
+        print(f"▶ 이미 {done} trials를 수행했습니다. 목표({TOTAL_TRIALS})에 도달했습니다.")
 
     print("▶ Best hyperparameters:", study.best_trial.params)
 

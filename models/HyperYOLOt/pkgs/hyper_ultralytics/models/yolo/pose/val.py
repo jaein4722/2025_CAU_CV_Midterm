@@ -5,11 +5,11 @@ from pathlib import Path
 import numpy as np
 import torch
 
-from hyper_ultralytics.models.yolo.detect import DetectionValidator
-from hyper_ultralytics.utils import LOGGER, ops
-from hyper_ultralytics.utils.checks import check_requirements
-from hyper_ultralytics.utils.metrics import OKS_SIGMA, PoseMetrics, box_iou, kpt_iou
-from hyper_ultralytics.utils.plotting import output_to_target, plot_images
+from models.HyperYOLOt.pkgs.hyper_ultralytics.models.yolo.detect import DetectionValidator
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import LOGGER, ops
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.checks import check_requirements
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.metrics import OKS_SIGMA, PoseMetrics, box_iou, kpt_iou
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.plotting import output_to_target, plot_images
 
 
 class PoseValidator(DetectionValidator):
@@ -18,7 +18,7 @@ class PoseValidator(DetectionValidator):
 
     Example:
         ```python
-        from hyper_ultralytics.models.yolo.pose import PoseValidator
+        from models.HyperYOLOt.pkgs.hyper_ultralytics.models.yolo.pose import PoseValidator
 
         args = dict(model='yolov8n-pose.pt', data='coco8-pose.yaml')
         validator = PoseValidator(args=args)

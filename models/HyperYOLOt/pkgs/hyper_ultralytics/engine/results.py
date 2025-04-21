@@ -12,10 +12,10 @@ from pathlib import Path
 import numpy as np
 import torch
 
-from hyper_ultralytics.data.augment import LetterBox
-from hyper_ultralytics.utils import LOGGER, SimpleClass, ops
-from hyper_ultralytics.utils.plotting import Annotator, colors, save_one_box
-from hyper_ultralytics.utils.torch_utils import smart_inference_mode
+from models.HyperYOLOt.pkgs.hyper_ultralytics.data.augment import LetterBox
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import LOGGER, SimpleClass, ops
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.plotting import Annotator, colors, save_one_box
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.torch_utils import smart_inference_mode
 
 
 class BaseTensor(SimpleClass):
@@ -203,7 +203,7 @@ class Results(SimpleClass):
         Example:
             ```python
             from PIL import Image
-            from hyper_ultralytics import YOLO
+            from models.HyperYOLOt.pkgs.hyper_ultralytics import YOLO
 
             model = YOLO('yolov8n.pt')
             results = model('bus.jpg')  # results list

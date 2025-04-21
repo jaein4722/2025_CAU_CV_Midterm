@@ -2,9 +2,9 @@
 
 import torch
 
-from hyper_ultralytics.engine.predictor import BasePredictor
-from hyper_ultralytics.engine.results import Results
-from hyper_ultralytics.utils import ops
+from models.HyperYOLOt.pkgs.hyper_ultralytics.engine.predictor import BasePredictor
+from models.HyperYOLOt.pkgs.hyper_ultralytics.engine.results import Results
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import ops
 
 
 class NASPredictor(BasePredictor):
@@ -20,7 +20,7 @@ class NASPredictor(BasePredictor):
 
     Example:
         ```python
-        from hyper_ultralytics import NAS
+        from models.HyperYOLOt.pkgs.hyper_ultralytics import NAS
 
         model = NAS('yolo_nas_s')
         predictor = model.predictor

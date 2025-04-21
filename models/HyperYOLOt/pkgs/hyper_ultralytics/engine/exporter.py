@@ -22,7 +22,7 @@ Requirements:
     $ pip install "hyper_ultralytics[export]"
 
 Python:
-    from hyper_ultralytics import YOLO
+    from models.HyperYOLOt.pkgs.hyper_ultralytics import YOLO
     model = YOLO('yolov8n.pt')
     results = model.export(format='onnx')
 
@@ -61,19 +61,19 @@ from pathlib import Path
 import numpy as np
 import torch
 
-from hyper_ultralytics.cfg import get_cfg
-from hyper_ultralytics.data.dataset import YOLODataset
-from hyper_ultralytics.data.utils import check_det_dataset
-from hyper_ultralytics.nn.autobackend import check_class_names, default_class_names
-from hyper_ultralytics.nn.modules import C2f, Detect, RTDETRDecoder
-from hyper_ultralytics.nn.tasks import DetectionModel, SegmentationModel
-from hyper_ultralytics.utils import (ARM64, DEFAULT_CFG, LINUX, LOGGER, MACOS, ROOT, WINDOWS, __version__, callbacks,
+from models.HyperYOLOt.pkgs.hyper_ultralytics.cfg import get_cfg
+from models.HyperYOLOt.pkgs.hyper_ultralytics.data.dataset import YOLODataset
+from models.HyperYOLOt.pkgs.hyper_ultralytics.data.utils import check_det_dataset
+from models.HyperYOLOt.pkgs.hyper_ultralytics.nn.autobackend import check_class_names, default_class_names
+from models.HyperYOLOt.pkgs.hyper_ultralytics.nn.modules import C2f, Detect, RTDETRDecoder
+from models.HyperYOLOt.pkgs.hyper_ultralytics.nn.tasks import DetectionModel, SegmentationModel
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import (ARM64, DEFAULT_CFG, LINUX, LOGGER, MACOS, ROOT, WINDOWS, __version__, callbacks,
                                colorstr, get_default_args, yaml_save)
-from hyper_ultralytics.utils.checks import check_imgsz, check_is_path_safe, check_requirements, check_version
-from hyper_ultralytics.utils.downloads import attempt_download_asset, get_github_assets
-from hyper_ultralytics.utils.files import file_size, spaces_in_path
-from hyper_ultralytics.utils.ops import Profile
-from hyper_ultralytics.utils.torch_utils import get_latest_opset, select_device, smart_inference_mode
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.checks import check_imgsz, check_is_path_safe, check_requirements, check_version
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.downloads import attempt_download_asset, get_github_assets
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.files import file_size, spaces_in_path
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.ops import Profile
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.torch_utils import get_latest_opset, select_device, smart_inference_mode
 
 
 def export_formats():

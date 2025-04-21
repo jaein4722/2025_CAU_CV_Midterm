@@ -7,8 +7,8 @@ hybrid encoder and IoU-aware query selection for enhanced detection accuracy.
 For more information on RT-DETR, visit: https://arxiv.org/pdf/2304.08069.pdf
 """
 
-from hyper_ultralytics.engine.model import Model
-from hyper_ultralytics.nn.tasks import RTDETRDetectionModel
+from models.HyperYOLOt.pkgs.hyper_ultralytics.engine.model import Model
+from models.HyperYOLOt.pkgs.hyper_ultralytics.nn.tasks import RTDETRDetectionModel
 
 from .predict import RTDETRPredictor
 from .train import RTDETRTrainer

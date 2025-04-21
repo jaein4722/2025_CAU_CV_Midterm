@@ -3,8 +3,8 @@ from pathlib import Path
 
 import torch
 
-from hyper_ultralytics.utils import IterableSimpleNamespace, yaml_load
-from hyper_ultralytics.utils.checks import check_yaml
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import IterableSimpleNamespace, yaml_load
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.checks import check_yaml
 
 from .bot_sort import BOTSORT
 from .byte_tracker import BYTETracker

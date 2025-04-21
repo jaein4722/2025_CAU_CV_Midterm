@@ -1,7 +1,7 @@
 # Ultralytics YOLO 🚀, AGPL-3.0 license
 
-from hyper_ultralytics.utils import SETTINGS, TESTS_RUNNING
-from hyper_ultralytics.utils.torch_utils import model_info_for_loggers
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import SETTINGS, TESTS_RUNNING
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.torch_utils import model_info_for_loggers
 
 try:
     assert not TESTS_RUNNING  # do not log pytest

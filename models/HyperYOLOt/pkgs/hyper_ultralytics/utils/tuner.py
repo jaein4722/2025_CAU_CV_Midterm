@@ -2,8 +2,8 @@
 
 import subprocess
 
-from hyper_ultralytics.cfg import TASK2DATA, TASK2METRIC, get_save_dir
-from hyper_ultralytics.utils import DEFAULT_CFG, DEFAULT_CFG_DICT, LOGGER, NUM_THREADS
+from models.HyperYOLOt.pkgs.hyper_ultralytics.cfg import TASK2DATA, TASK2METRIC, get_save_dir
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import DEFAULT_CFG, DEFAULT_CFG_DICT, LOGGER, NUM_THREADS
 
 
 def run_ray_tune(model,
@@ -28,7 +28,7 @@ def run_ray_tune(model,
 
     Example:
         ```python
-        from hyper_ultralytics import YOLO
+        from models.HyperYOLOt.pkgs.hyper_ultralytics import YOLO
 
         # Load a YOLOv8n model
         model = YOLO('yolov8n.pt')

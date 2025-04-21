@@ -16,12 +16,12 @@ import cv2
 import numpy as np
 from PIL import Image, ImageOps
 
-from hyper_ultralytics.nn.autobackend import check_class_names
-from hyper_ultralytics.utils import (DATASETS_DIR, LOGGER, NUM_THREADS, ROOT, SETTINGS_YAML, TQDM, clean_url, colorstr,
+from models.HyperYOLOt.pkgs.hyper_ultralytics.nn.autobackend import check_class_names
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import (DATASETS_DIR, LOGGER, NUM_THREADS, ROOT, SETTINGS_YAML, TQDM, clean_url, colorstr,
                                emojis, yaml_load, yaml_save)
-from hyper_ultralytics.utils.checks import check_file, check_font, is_ascii
-from hyper_ultralytics.utils.downloads import download, safe_download, unzip_file
-from hyper_ultralytics.utils.ops import segments2boxes
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.checks import check_file, check_font, is_ascii
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.downloads import download, safe_download, unzip_file
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.ops import segments2boxes
 
 HELP_URL = 'See https://docs.hyper_ultralytics.com/datasets/detect for dataset formatting guidance.'
 IMG_FORMATS = 'bmp', 'dng', 'jpeg', 'jpg', 'mpo', 'png', 'tif', 'tiff', 'webp', 'pfm'  # image suffixes
@@ -411,7 +411,7 @@ class HUBDatasetStats:
         Download *.zip files from https://github.com/hyper_ultralytics/hub/tree/main/example_datasets
             i.e. https://github.com/hyper_ultralytics/hub/raw/main/example_datasets/coco8.zip for coco8.zip.
         ```python
-        from hyper_ultralytics.data.utils import HUBDatasetStats
+        from models.HyperYOLOt.pkgs.hyper_ultralytics.data.utils import HUBDatasetStats
 
         stats = HUBDatasetStats('path/to/coco8.zip', task='detect')  # detect dataset
         stats = HUBDatasetStats('path/to/coco8-seg.zip', task='segment')  # segment dataset
@@ -514,7 +514,7 @@ class HUBDatasetStats:
                     'labels': [{
                         Path(k).name: v} for k, v in dataset.imgs]}
             else:
-                from hyper_ultralytics.data import YOLODataset
+                from models.HyperYOLOt.pkgs.hyper_ultralytics.data import YOLODataset
 
                 dataset = YOLODataset(img_path=self.data[split],
                                       data=self.data,
@@ -546,7 +546,7 @@ class HUBDatasetStats:
 
     def process_images(self):
         """Compress images for Ultralytics HUB."""
-        from hyper_ultralytics.data import YOLODataset  # ClassificationDataset
+        from models.HyperYOLOt.pkgs.hyper_ultralytics.data import YOLODataset  # ClassificationDataset
 
         for split in 'train', 'val', 'test':
             if self.data.get(split) is None:
@@ -574,7 +574,7 @@ def compress_one_image(f, f_new=None, max_dim=1920, quality=50):
     Example:
         ```python
         from pathlib import Path
-        from hyper_ultralytics.data.utils import compress_one_image
+        from models.HyperYOLOt.pkgs.hyper_ultralytics.data.utils import compress_one_image
 
         for f in Path('path/to/dataset').rglob('*.jpg'):
             compress_one_image(f)
@@ -608,7 +608,7 @@ def autosplit(path=DATASETS_DIR / 'coco8/images', weights=(0.9, 0.1, 0.0), annot
 
     Example:
         ```python
-        from hyper_ultralytics.data.utils import autosplit
+        from models.HyperYOLOt.pkgs.hyper_ultralytics.data.utils import autosplit
 
         autosplit()
         ```

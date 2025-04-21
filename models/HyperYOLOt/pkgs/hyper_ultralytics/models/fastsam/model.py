@@ -2,7 +2,7 @@
 
 from pathlib import Path
 
-from hyper_ultralytics.engine.model import Model
+from models.HyperYOLOt.pkgs.hyper_ultralytics.engine.model import Model
 
 from .predict import FastSAMPredictor
 from .val import FastSAMValidator
@@ -14,7 +14,7 @@ class FastSAM(Model):
 
     Example:
         ```python
-        from hyper_ultralytics import FastSAM
+        from models.HyperYOLOt.pkgs.hyper_ultralytics import FastSAM
 
         model = FastSAM('last.pt')
         results = model.predict('hyper_ultralytics/assets/bus.jpg')

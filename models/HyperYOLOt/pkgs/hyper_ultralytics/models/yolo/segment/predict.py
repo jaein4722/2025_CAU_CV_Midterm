@@ -2,9 +2,9 @@
 import sys
 import os
 sys.path.append(os.getcwd())
-from hyper_ultralytics.engine.results import Results
-from hyper_ultralytics.models.yolo.detect.predict import DetectionPredictor
-from hyper_ultralytics.utils import DEFAULT_CFG, ops
+from models.HyperYOLOt.pkgs.hyper_ultralytics.engine.results import Results
+from models.HyperYOLOt.pkgs.hyper_ultralytics.models.yolo.detect.predict import DetectionPredictor
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import DEFAULT_CFG, ops
 
 
 class SegmentationPredictor(DetectionPredictor):
@@ -13,8 +13,8 @@ class SegmentationPredictor(DetectionPredictor):
 
     Example:
         ```python
-        from hyper_ultralytics.utils import ASSETS
-        from hyper_ultralytics.models.yolo.segment import SegmentationPredictor
+        from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import ASSETS
+        from models.HyperYOLOt.pkgs.hyper_ultralytics.models.yolo.segment import SegmentationPredictor
 
         args = dict(model='yolov8n-seg.pt', source=ASSETS)
         predictor = SegmentationPredictor(overrides=args)

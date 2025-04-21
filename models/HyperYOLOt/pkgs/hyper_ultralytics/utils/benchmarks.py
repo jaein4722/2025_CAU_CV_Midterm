@@ -3,7 +3,7 @@
 Benchmark a YOLO model formats for speed and accuracy.
 
 Usage:
-    from hyper_ultralytics.utils.benchmarks import ProfileModels, benchmark
+    from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.benchmarks import ProfileModels, benchmark
     ProfileModels(['yolov8n.yaml', 'yolov8s.yaml']).profile()
     benchmark(model='yolov8n.pt', imgsz=160)
 
@@ -35,13 +35,13 @@ import pandas as pd
 import numpy as np
 import torch.cuda
 
-from hyper_ultralytics import YOLO
-from hyper_ultralytics.cfg import TASK2DATA, TASK2METRIC
-from hyper_ultralytics.engine.exporter import export_formats
-from hyper_ultralytics.utils import ASSETS, LINUX, LOGGER, MACOS, TQDM, WEIGHTS_DIR
-from hyper_ultralytics.utils.checks import check_requirements, check_yolo
-from hyper_ultralytics.utils.files import file_size
-from hyper_ultralytics.utils.torch_utils import select_device
+from models.HyperYOLOt.pkgs.hyper_ultralytics import YOLO
+from models.HyperYOLOt.pkgs.hyper_ultralytics.cfg import TASK2DATA, TASK2METRIC
+from models.HyperYOLOt.pkgs.hyper_ultralytics.engine.exporter import export_formats
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import ASSETS, LINUX, LOGGER, MACOS, TQDM, WEIGHTS_DIR
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.checks import check_requirements, check_yolo
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.files import file_size
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.torch_utils import select_device
 
 
 def benchmark(model=WEIGHTS_DIR / 'yolov8n.pt',
@@ -72,7 +72,7 @@ def benchmark(model=WEIGHTS_DIR / 'yolov8n.pt',
 
     Example:
         ```python
-        from hyper_ultralytics.utils.benchmarks import benchmark
+        from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.benchmarks import benchmark
 
         benchmark(model='yolov8n.pt', imgsz=640)
         ```
@@ -172,7 +172,7 @@ class ProfileModels:
 
     Example:
         ```python
-        from hyper_ultralytics.utils.benchmarks import ProfileModels
+        from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.benchmarks import ProfileModels
 
         ProfileModels(['yolov8n.yaml', 'yolov8s.yaml'], imgsz=640).profile()
         ```

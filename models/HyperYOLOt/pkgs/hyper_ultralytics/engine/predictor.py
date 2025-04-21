@@ -35,14 +35,14 @@ import cv2
 import numpy as np
 import torch
 
-from hyper_ultralytics.cfg import get_cfg, get_save_dir
-from hyper_ultralytics.data import load_inference_source
-from hyper_ultralytics.data.augment import LetterBox, classify_transforms
-from hyper_ultralytics.nn.autobackend import AutoBackend
-from hyper_ultralytics.utils import DEFAULT_CFG, LOGGER, MACOS, WINDOWS, callbacks, colorstr, ops
-from hyper_ultralytics.utils.checks import check_imgsz, check_imshow
-from hyper_ultralytics.utils.files import increment_path
-from hyper_ultralytics.utils.torch_utils import select_device, smart_inference_mode
+from models.HyperYOLOt.pkgs.hyper_ultralytics.cfg import get_cfg, get_save_dir
+from models.HyperYOLOt.pkgs.hyper_ultralytics.data import load_inference_source
+from models.HyperYOLOt.pkgs.hyper_ultralytics.data.augment import LetterBox, classify_transforms
+from models.HyperYOLOt.pkgs.hyper_ultralytics.nn.autobackend import AutoBackend
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import DEFAULT_CFG, LOGGER, MACOS, WINDOWS, callbacks, colorstr, ops
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.checks import check_imgsz, check_imshow
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.files import increment_path
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.torch_utils import select_device, smart_inference_mode
 
 STREAM_WARNING = """
 WARNING ⚠️ inference results will accumulate in RAM unless `stream=True` is passed, causing potential out-of-memory

@@ -5,7 +5,7 @@ import copy
 import cv2
 import numpy as np
 
-from hyper_ultralytics.utils import LOGGER
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import LOGGER
 
 
 class GMC:

@@ -6,13 +6,13 @@ import numpy as np
 import sys
 import os
 sys.path.append(os.getcwd())
-from hyper_ultralytics.data import build_dataloader, build_yolo_dataset
-from hyper_ultralytics.engine.trainer import BaseTrainer
-from hyper_ultralytics.models import yolo
-from hyper_ultralytics.nn.tasks import DetectionModel
-from hyper_ultralytics.utils import DEFAULT_CFG, LOGGER, RANK
-from hyper_ultralytics.utils.plotting import plot_images, plot_labels, plot_results
-from hyper_ultralytics.utils.torch_utils import de_parallel, torch_distributed_zero_first
+from models.HyperYOLOt.pkgs.hyper_ultralytics.data import build_dataloader, build_yolo_dataset
+from models.HyperYOLOt.pkgs.hyper_ultralytics.engine.trainer import BaseTrainer
+from models.HyperYOLOt.pkgs.hyper_ultralytics.models import yolo
+from models.HyperYOLOt.pkgs.hyper_ultralytics.nn.tasks import DetectionModel
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import DEFAULT_CFG, LOGGER, RANK
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.plotting import plot_images, plot_labels, plot_results
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.torch_utils import de_parallel, torch_distributed_zero_first
 
 
 class DetectionTrainer(BaseTrainer):
@@ -21,7 +21,7 @@ class DetectionTrainer(BaseTrainer):
 
     Example:
         ```python
-        from hyper_ultralytics.models.yolo.detect import DetectionTrainer
+        from models.HyperYOLOt.pkgs.hyper_ultralytics.models.yolo.detect import DetectionTrainer
 
         args = dict(model='yolov8n.pt', data='coco8.yaml', epochs=3)
         trainer = DetectionTrainer(overrides=args)
@@ -127,7 +127,7 @@ def train(cfg=DEFAULT_CFG, use_python=False):
 
     args = dict(model=model, data=data, device=device)
     if use_python:
-        from hyper_ultralytics import YOLO
+        from models.HyperYOLOt.pkgs.hyper_ultralytics import YOLO
         YOLO(model).train(**args)
     else:
         trainer = DetectionTrainer(overrides=args)

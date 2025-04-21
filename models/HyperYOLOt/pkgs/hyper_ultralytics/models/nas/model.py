@@ -4,7 +4,7 @@ YOLO-NAS model interface.
 
 Example:
     ```python
-    from hyper_ultralytics import NAS
+    from models.HyperYOLOt.pkgs.hyper_ultralytics import NAS
 
     model = NAS('yolo_nas_s')
     results = model.predict('hyper_ultralytics/assets/bus.jpg')
@@ -15,8 +15,8 @@ from pathlib import Path
 
 import torch
 
-from hyper_ultralytics.engine.model import Model
-from hyper_ultralytics.utils.torch_utils import model_info, smart_inference_mode
+from models.HyperYOLOt.pkgs.hyper_ultralytics.engine.model import Model
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.torch_utils import model_info, smart_inference_mode
 
 from .predict import NASPredictor
 from .val import NASValidator
@@ -31,7 +31,7 @@ class NAS(Model):
 
     Example:
         ```python
-        from hyper_ultralytics import NAS
+        from models.HyperYOLOt.pkgs.hyper_ultralytics import NAS
 
         model = NAS('yolo_nas_s')
         results = model.predict('hyper_ultralytics/assets/bus.jpg')

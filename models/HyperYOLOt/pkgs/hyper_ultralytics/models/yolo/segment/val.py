@@ -12,11 +12,11 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 
-from hyper_ultralytics.models.yolo.detect import DetectionValidator
-from hyper_ultralytics.utils import DEFAULT_CFG, LOGGER, NUM_THREADS, ops
-from hyper_ultralytics.utils.checks import check_requirements
-from hyper_ultralytics.utils.metrics import SegmentMetrics, box_iou, mask_iou
-from hyper_ultralytics.utils.plotting import output_to_target, plot_images
+from models.HyperYOLOt.pkgs.hyper_ultralytics.models.yolo.detect import DetectionValidator
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import DEFAULT_CFG, LOGGER, NUM_THREADS, ops
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.checks import check_requirements
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.metrics import SegmentMetrics, box_iou, mask_iou
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.plotting import output_to_target, plot_images
 
 
 class SegmentationValidator(DetectionValidator):
@@ -25,7 +25,7 @@ class SegmentationValidator(DetectionValidator):
 
     Example:
         ```python
-        from hyper_ultralytics.models.yolo.segment import SegmentationValidator
+        from models.HyperYOLOt.pkgs.hyper_ultralytics.models.yolo.segment import SegmentationValidator
 
         args = dict(model='yolov8n-seg.pt', data='coco8-seg.yaml')
         validator = SegmentationValidator(args=args)
@@ -262,7 +262,7 @@ def val(cfg=DEFAULT_CFG, use_python=False):
 
     args = dict(model=model, data=data)
     if use_python:
-        from hyper_ultralytics import YOLO
+        from models.HyperYOLOt.pkgs.hyper_ultralytics import YOLO
         YOLO(model).val(**args)
     else:
         # validator = DetectionValidator(args=args)

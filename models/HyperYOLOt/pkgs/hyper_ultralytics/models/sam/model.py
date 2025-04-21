@@ -16,8 +16,8 @@ Key Features:
 
 from pathlib import Path
 
-from hyper_ultralytics.engine.model import Model
-from hyper_ultralytics.utils.torch_utils import model_info
+from models.HyperYOLOt.pkgs.hyper_ultralytics.engine.model import Model
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.torch_utils import model_info
 
 from .build import build_sam
 from .predict import Predictor

@@ -10,11 +10,11 @@ import torch
 from PIL import Image
 from torch.utils.data import dataloader, distributed
 
-from hyper_ultralytics.data.loaders import (LOADERS, LoadImages, LoadPilAndNumpy, LoadScreenshots, LoadStreams, LoadTensor,
+from models.HyperYOLOt.pkgs.hyper_ultralytics.data.loaders import (LOADERS, LoadImages, LoadPilAndNumpy, LoadScreenshots, LoadStreams, LoadTensor,
                                       SourceTypes, autocast_list)
-from hyper_ultralytics.data.utils import IMG_FORMATS, VID_FORMATS
-from hyper_ultralytics.utils import RANK, colorstr
-from hyper_ultralytics.utils.checks import check_file
+from models.HyperYOLOt.pkgs.hyper_ultralytics.data.utils import IMG_FORMATS, VID_FORMATS
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import RANK, colorstr
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.checks import check_file
 
 from .dataset import YOLODataset
 from .utils import PIN_MEMORY

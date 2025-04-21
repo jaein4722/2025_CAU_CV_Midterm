@@ -21,7 +21,7 @@ Commands:
         ps aux | grep 'mlflow' | grep -v 'grep' | awk '{print $2}' | xargs kill -9
 """
 
-from hyper_ultralytics.utils import LOGGER, RUNS_DIR, SETTINGS, TESTS_RUNNING, colorstr
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import LOGGER, RUNS_DIR, SETTINGS, TESTS_RUNNING, colorstr
 
 try:
     import os

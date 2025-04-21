@@ -13,11 +13,11 @@ import torch
 import torch.nn.functional as F
 import torchvision
 
-from hyper_ultralytics.data.augment import LetterBox
-from hyper_ultralytics.engine.predictor import BasePredictor
-from hyper_ultralytics.engine.results import Results
-from hyper_ultralytics.utils import DEFAULT_CFG, ops
-from hyper_ultralytics.utils.torch_utils import select_device
+from models.HyperYOLOt.pkgs.hyper_ultralytics.data.augment import LetterBox
+from models.HyperYOLOt.pkgs.hyper_ultralytics.engine.predictor import BasePredictor
+from models.HyperYOLOt.pkgs.hyper_ultralytics.engine.results import Results
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import DEFAULT_CFG, ops
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.torch_utils import select_device
 
 from .amg import (batch_iterator, batched_mask_to_box, build_all_layer_point_grids, calculate_stability_score,
                   generate_crop_boxes, is_box_near_crop_edge, remove_small_regions, uncrop_boxes_xyxy, uncrop_masks)

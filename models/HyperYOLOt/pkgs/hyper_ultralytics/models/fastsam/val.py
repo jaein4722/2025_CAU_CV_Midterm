@@ -1,7 +1,7 @@
 # Ultralytics YOLO 🚀, AGPL-3.0 license
 
-from hyper_ultralytics.models.yolo.segment import SegmentationValidator
-from hyper_ultralytics.utils.metrics import SegmentMetrics
+from models.HyperYOLOt.pkgs.hyper_ultralytics.models.yolo.segment import SegmentationValidator
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.metrics import SegmentMetrics
 
 
 class FastSAMValidator(SegmentationValidator):

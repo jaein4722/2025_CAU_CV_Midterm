@@ -12,7 +12,7 @@ from urllib import parse, request
 import requests
 import torch
 
-from hyper_ultralytics.utils import LOGGER, TQDM, checks, clean_url, emojis, is_online, url2file
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import LOGGER, TQDM, checks, clean_url, emojis, is_online, url2file
 
 # Define Ultralytics GitHub assets maintained at https://github.com/hyper_ultralytics/assets
 GITHUB_ASSETS_REPO = 'hyper_ultralytics/assets'
@@ -66,7 +66,7 @@ def delete_dsstore(path, files_to_delete=('.DS_Store', '__MACOSX')):
 
     Example:
         ```python
-        from hyper_ultralytics.utils.downloads import delete_dsstore
+        from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.downloads import delete_dsstore
 
         delete_dsstore('path/to/dir')
         ```
@@ -98,7 +98,7 @@ def zip_directory(directory, compress=True, exclude=('.DS_Store', '__MACOSX'), p
 
     Example:
         ```python
-        from hyper_ultralytics.utils.downloads import zip_directory
+        from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.downloads import zip_directory
 
         file = zip_directory('path/to/dir')
         ```
@@ -144,7 +144,7 @@ def unzip_file(file, path=None, exclude=('.DS_Store', '__MACOSX'), exist_ok=Fals
 
     Example:
         ```python
-        from hyper_ultralytics.utils.downloads import unzip_file
+        from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.downloads import unzip_file
 
         dir = unzip_file('path/to/file.zip')
         ```
@@ -232,7 +232,7 @@ def get_google_drive_file_info(link):
 
     Example:
         ```python
-        from hyper_ultralytics.utils.downloads import get_google_drive_file_info
+        from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.downloads import get_google_drive_file_info
 
         link = "https://drive.google.com/file/d/1cqT-cJgANNrhIHCrEufUYhQ4RqiWG_lJ/view?usp=drive_link"
         url, filename = get_google_drive_file_info(link)
@@ -286,7 +286,7 @@ def safe_download(url,
 
     Example:
         ```python
-        from hyper_ultralytics.utils.downloads import safe_download
+        from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.downloads import safe_download
 
         link = "https://hyper_ultralytics.com/assets/bus.jpg"
         path = safe_download(link)
@@ -402,7 +402,7 @@ def attempt_download_asset(file, repo='hyper_ultralytics/assets', release='v0.0.
         file_path = attempt_download_asset('yolov5s.pt', repo='hyper_ultralytics/assets', release='latest')
         ```
     """
-    from hyper_ultralytics.utils import SETTINGS  # scoped for circular import
+    from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import SETTINGS  # scoped for circular import
 
     # YOLOv3/5u updates
     file = str(file)

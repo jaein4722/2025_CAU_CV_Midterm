@@ -2,9 +2,9 @@
 
 import torch
 
-from hyper_ultralytics.engine.predictor import BasePredictor
-from hyper_ultralytics.engine.results import Results
-from hyper_ultralytics.utils import DEFAULT_CFG, ops
+from models.HyperYOLOt.pkgs.hyper_ultralytics.engine.predictor import BasePredictor
+from models.HyperYOLOt.pkgs.hyper_ultralytics.engine.results import Results
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import DEFAULT_CFG, ops
 
 
 class ClassificationPredictor(BasePredictor):
@@ -16,8 +16,8 @@ class ClassificationPredictor(BasePredictor):
 
     Example:
         ```python
-        from hyper_ultralytics.utils import ASSETS
-        from hyper_ultralytics.models.yolo.classify import ClassificationPredictor
+        from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import ASSETS
+        from models.HyperYOLOt.pkgs.hyper_ultralytics.models.yolo.classify import ClassificationPredictor
 
         args = dict(model='yolov8n-cls.pt', source=ASSETS)
         predictor = ClassificationPredictor(overrides=args)

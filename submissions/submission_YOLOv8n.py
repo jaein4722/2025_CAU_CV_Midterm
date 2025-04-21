@@ -11,7 +11,7 @@ from models import YOLOv8n
 from utils.ex_dict import update_ex_dict
 
 
-def submission_YOLOv8n(yaml_path, output_json_path, config = None):
+def submission_YOLOv8n(yaml_path, output_json_path, config = None, overwrite_dict: dict = None):
     
     ###### can be modified (Only Hyperparameters, which can be modified in demo) ######
     hyperparams = {
@@ -32,6 +32,11 @@ def submission_YOLOv8n(yaml_path, output_json_path, config = None):
     
     if config is None:
         config = YOLOv8n.ModelConfig()
+        
+    # for hyperparameter tuning
+    if overwrite_dict is not None:
+        hyperparams.update(overwrite_dict)
+        
     config.update_from_dict(hyperparams)
     data_config = load_yaml_config(yaml_path)
     ex_dict = {}

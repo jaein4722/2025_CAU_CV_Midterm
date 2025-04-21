@@ -2,9 +2,9 @@
 import sys
 import os
 sys.path.append(os.getcwd())
-from hyper_ultralytics.engine.predictor import BasePredictor
-from hyper_ultralytics.engine.results import Results
-from hyper_ultralytics.utils import DEFAULT_CFG, ops
+from models.HyperYOLOt.pkgs.hyper_ultralytics.engine.predictor import BasePredictor
+from models.HyperYOLOt.pkgs.hyper_ultralytics.engine.results import Results
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import DEFAULT_CFG, ops
 
 
 
@@ -14,8 +14,8 @@ class DetectionPredictor(BasePredictor):
 
     Example:
         ```python
-        from hyper_ultralytics.utils import ASSETS
-        from hyper_ultralytics.models.yolo.detect import DetectionPredictor
+        from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import ASSETS
+        from models.HyperYOLOt.pkgs.hyper_ultralytics.models.yolo.detect import DetectionPredictor
 
         args = dict(model='yolov8n.pt', source=ASSETS)
         predictor = DetectionPredictor(overrides=args)

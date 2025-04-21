@@ -1,8 +1,8 @@
 # Ultralytics YOLO 🚀, AGPL-3.0 license
 
-from hyper_ultralytics.engine.results import Results
-from hyper_ultralytics.models.yolo.detect.predict import DetectionPredictor
-from hyper_ultralytics.utils import DEFAULT_CFG, LOGGER, ops
+from models.HyperYOLOt.pkgs.hyper_ultralytics.engine.results import Results
+from models.HyperYOLOt.pkgs.hyper_ultralytics.models.yolo.detect.predict import DetectionPredictor
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import DEFAULT_CFG, LOGGER, ops
 
 
 class PosePredictor(DetectionPredictor):
@@ -11,8 +11,8 @@ class PosePredictor(DetectionPredictor):
 
     Example:
         ```python
-        from hyper_ultralytics.utils import ASSETS
-        from hyper_ultralytics.models.yolo.pose import PosePredictor
+        from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import ASSETS
+        from models.HyperYOLOt.pkgs.hyper_ultralytics.models.yolo.pose import PosePredictor
 
         args = dict(model='yolov8n-pose.pt', source=ASSETS)
         predictor = PosePredictor(overrides=args)

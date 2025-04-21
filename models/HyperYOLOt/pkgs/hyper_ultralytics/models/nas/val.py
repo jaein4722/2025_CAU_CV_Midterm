@@ -2,8 +2,8 @@
 
 import torch
 
-from hyper_ultralytics.models.yolo.detect import DetectionValidator
-from hyper_ultralytics.utils import ops
+from models.HyperYOLOt.pkgs.hyper_ultralytics.models.yolo.detect import DetectionValidator
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import ops
 
 __all__ = ['NASValidator']
 
@@ -22,7 +22,7 @@ class NASValidator(DetectionValidator):
 
     Example:
         ```python
-        from hyper_ultralytics import NAS
+        from models.HyperYOLOt.pkgs.hyper_ultralytics import NAS
 
         model = NAS('yolo_nas_s')
         validator = model.validator

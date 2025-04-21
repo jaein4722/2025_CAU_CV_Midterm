@@ -7,7 +7,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from hyper_ultralytics.nn.modules import LayerNorm2d, MLPBlock
+from models.HyperYOLOt.pkgs.hyper_ultralytics.nn.modules import LayerNorm2d, MLPBlock
 
 
 class ImageEncoderViT(nn.Module):

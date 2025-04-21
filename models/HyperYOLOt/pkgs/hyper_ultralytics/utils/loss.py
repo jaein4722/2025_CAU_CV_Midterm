@@ -4,9 +4,9 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from hyper_ultralytics.utils.metrics import OKS_SIGMA
-from hyper_ultralytics.utils.ops import crop_mask, xywh2xyxy, xyxy2xywh
-from hyper_ultralytics.utils.tal import TaskAlignedAssigner, dist2bbox, make_anchors
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.metrics import OKS_SIGMA
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.ops import crop_mask, xywh2xyxy, xyxy2xywh
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.tal import TaskAlignedAssigner, dist2bbox, make_anchors
 
 from .metrics import bbox_iou
 from .tal import bbox2dist

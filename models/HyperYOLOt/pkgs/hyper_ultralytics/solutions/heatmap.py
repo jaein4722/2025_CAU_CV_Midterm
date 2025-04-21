@@ -5,8 +5,8 @@ from collections import defaultdict
 import cv2
 import numpy as np
 
-from hyper_ultralytics.utils.checks import check_imshow, check_requirements
-from hyper_ultralytics.utils.plotting import Annotator
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.checks import check_imshow, check_requirements
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.plotting import Annotator
 
 check_requirements('shapely>=2.0.0')
 

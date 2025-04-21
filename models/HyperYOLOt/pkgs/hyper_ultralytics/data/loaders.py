@@ -15,9 +15,9 @@ import requests
 import torch
 from PIL import Image
 
-from hyper_ultralytics.data.utils import IMG_FORMATS, VID_FORMATS
-from hyper_ultralytics.utils import LOGGER, is_colab, is_kaggle, ops
-from hyper_ultralytics.utils.checks import check_requirements
+from models.HyperYOLOt.pkgs.hyper_ultralytics.data.utils import IMG_FORMATS, VID_FORMATS
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import LOGGER, is_colab, is_kaggle, ops
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.checks import check_requirements
 
 
 @dataclass

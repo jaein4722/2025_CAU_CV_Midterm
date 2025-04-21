@@ -4,8 +4,8 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from hyper_ultralytics.utils.loss import FocalLoss, VarifocalLoss
-from hyper_ultralytics.utils.metrics import bbox_iou
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.loss import FocalLoss, VarifocalLoss
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.metrics import bbox_iou
 
 from .ops import HungarianMatcher
 

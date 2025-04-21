@@ -2,10 +2,10 @@
 
 import torch
 
-from hyper_ultralytics.engine.results import Results
-from hyper_ultralytics.models.fastsam.utils import bbox_iou
-from hyper_ultralytics.models.yolo.detect.predict import DetectionPredictor
-from hyper_ultralytics.utils import DEFAULT_CFG, ops
+from models.HyperYOLOt.pkgs.hyper_ultralytics.engine.results import Results
+from models.HyperYOLOt.pkgs.hyper_ultralytics.models.fastsam.utils import bbox_iou
+from models.HyperYOLOt.pkgs.hyper_ultralytics.models.yolo.detect.predict import DetectionPredictor
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import DEFAULT_CFG, ops
 
 
 class FastSAMPredictor(DetectionPredictor):

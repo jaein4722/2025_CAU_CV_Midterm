@@ -22,7 +22,7 @@ import torch
 import yaml
 from tqdm import tqdm as tqdm_original
 
-from hyper_ultralytics import __version__
+from models.HyperYOLOt.pkgs.hyper_ultralytics import __version__
 
 # PyTorch Multi-GPU DDP Constants
 RANK = int(os.getenv('RANK', -1))
@@ -50,7 +50,7 @@ HELP_MSG = \
 
     2. Use the Python SDK:
 
-        from hyper_ultralytics import YOLO
+        from models.HyperYOLOt.pkgs.hyper_ultralytics import YOLO
 
         # Load a model
         model = YOLO('yolov8n.yaml')  # build a new model from scratch
@@ -283,7 +283,7 @@ class ThreadingLocked:
 
     Example:
         ```python
-        from hyper_ultralytics.utils import ThreadingLocked
+        from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import ThreadingLocked
 
         @ThreadingLocked()
         def my_function():
@@ -836,8 +836,8 @@ class SettingsManager(dict):
         import copy
         import hashlib
 
-        from hyper_ultralytics.utils.checks import check_version
-        from hyper_ultralytics.utils.torch_utils import torch_distributed_zero_first
+        from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.checks import check_version
+        from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.torch_utils import torch_distributed_zero_first
 
         git_dir = get_git_dir()
         root = git_dir or Path()

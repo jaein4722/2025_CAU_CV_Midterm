@@ -1,6 +1,6 @@
 # Ultralytics YOLO 🚀, AGPL-3.0 license
 
-from hyper_ultralytics.utils import SETTINGS
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import SETTINGS
 
 try:
     assert SETTINGS['raytune'] is True  # verify integration is enabled

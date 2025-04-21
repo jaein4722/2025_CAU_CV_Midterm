@@ -7,8 +7,8 @@ from pathlib import Path
 import cv2
 import numpy as np
 
-from hyper_ultralytics.utils import LOGGER, TQDM
-from hyper_ultralytics.utils.files import increment_path
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import LOGGER, TQDM
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.files import increment_path
 
 
 def coco91_to_coco80_class():
@@ -64,7 +64,7 @@ def convert_coco(labels_dir='../coco/annotations/',
 
     Example:
         ```python
-        from hyper_ultralytics.data.converter import convert_coco
+        from models.HyperYOLOt.pkgs.hyper_ultralytics.data.converter import convert_coco
 
         convert_coco('../datasets/coco/annotations/', use_segments=True, use_keypoints=False, cls91to80=True)
         ```
@@ -159,7 +159,7 @@ def convert_dota_to_yolo_obb(dota_root_path: str):
 
     Example:
         ```python
-        from hyper_ultralytics.data.converter import convert_dota_to_yolo_obb
+        from models.HyperYOLOt.pkgs.hyper_ultralytics.data.converter import convert_dota_to_yolo_obb
 
         convert_dota_to_yolo_obb('path/to/DOTA')
         ```

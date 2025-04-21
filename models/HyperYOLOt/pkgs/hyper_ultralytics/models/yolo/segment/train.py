@@ -4,10 +4,10 @@ from copy import copy
 import os
 import sys
 sys.path.append(os.getcwd())
-from hyper_ultralytics.models import yolo
-from hyper_ultralytics.nn.tasks import SegmentationModel
-from hyper_ultralytics.utils import DEFAULT_CFG, RANK
-from hyper_ultralytics.utils.plotting import plot_images, plot_results
+from models.HyperYOLOt.pkgs.hyper_ultralytics.models import yolo
+from models.HyperYOLOt.pkgs.hyper_ultralytics.nn.tasks import SegmentationModel
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import DEFAULT_CFG, RANK
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.plotting import plot_images, plot_results
 
 
 class SegmentationTrainer(yolo.detect.DetectionTrainer):
@@ -16,7 +16,7 @@ class SegmentationTrainer(yolo.detect.DetectionTrainer):
 
     Example:
         ```python
-        from hyper_ultralytics.models.yolo.segment import SegmentationTrainer
+        from models.HyperYOLOt.pkgs.hyper_ultralytics.models.yolo.segment import SegmentationTrainer
 
         args = dict(model='yolov8n-seg.pt', data='coco8-seg.yaml', epochs=3)
         trainer = SegmentationTrainer(overrides=args)
@@ -68,7 +68,7 @@ def train(cfg=DEFAULT_CFG, use_python=False):
 
     args = dict(model=model, data=data, device=device)
     if use_python:
-        from hyper_ultralytics import YOLO
+        from models.HyperYOLOt.pkgs.hyper_ultralytics import YOLO
         YOLO(model).train(**args)
     else:
         trainer = SegmentationTrainer(overrides=args)

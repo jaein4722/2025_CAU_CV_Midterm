@@ -8,12 +8,12 @@ import numpy as np
 import torch
 import sys
 sys.path.append(os.getcwd())
-from hyper_ultralytics.data import build_dataloader, build_yolo_dataset, converter
-from hyper_ultralytics.engine.validator import BaseValidator
-from hyper_ultralytics.utils import DEFAULT_CFG, LOGGER, ops
-from hyper_ultralytics.utils.checks import check_requirements
-from hyper_ultralytics.utils.metrics import ConfusionMatrix, DetMetrics, box_iou
-from hyper_ultralytics.utils.plotting import output_to_target, plot_images
+from models.HyperYOLOt.pkgs.hyper_ultralytics.data import build_dataloader, build_yolo_dataset, converter
+from models.HyperYOLOt.pkgs.hyper_ultralytics.engine.validator import BaseValidator
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import DEFAULT_CFG, LOGGER, ops
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.checks import check_requirements
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.metrics import ConfusionMatrix, DetMetrics, box_iou
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.plotting import output_to_target, plot_images
 
 
 class DetectionValidator(BaseValidator):
@@ -22,7 +22,7 @@ class DetectionValidator(BaseValidator):
 
     Example:
         ```python
-        from hyper_ultralytics.models.yolo.detect import DetectionValidator
+        from models.HyperYOLOt.pkgs.hyper_ultralytics.models.yolo.detect import DetectionValidator
 
         args = dict(model='yolov8n.pt', data='coco8.yaml')
         validator = DetectionValidator(args=args)
@@ -276,7 +276,7 @@ def val(cfg=DEFAULT_CFG, use_python=False):
 
     args = dict(model=model, data=data)
     if use_python:
-        from hyper_ultralytics import YOLO
+        from models.HyperYOLOt.pkgs.hyper_ultralytics import YOLO
         YOLO(model).val(**args)
     else:
         # validator = DetectionValidator(args=args)

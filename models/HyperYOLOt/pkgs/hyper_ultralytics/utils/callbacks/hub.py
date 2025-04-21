@@ -3,8 +3,8 @@
 import json
 from time import time
 
-from hyper_ultralytics.hub.utils import HUB_WEB_ROOT, PREFIX, events
-from hyper_ultralytics.utils import LOGGER, SETTINGS
+from models.HyperYOLOt.pkgs.hyper_ultralytics.hub.utils import HUB_WEB_ROOT, PREFIX, events
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import LOGGER, SETTINGS
 
 
 def on_pretrain_routine_end(trainer):
@@ -23,7 +23,7 @@ def on_fit_epoch_end(trainer):
         # Upload metrics after val end
         all_plots = {**trainer.label_loss_items(trainer.tloss, prefix='train'), **trainer.metrics}
         if trainer.epoch == 0:
-            from hyper_ultralytics.utils.torch_utils import model_info_for_loggers
+            from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.torch_utils import model_info_for_loggers
             all_plots = {**all_plots, **model_info_for_loggers(trainer)}
         session.metrics_queue[trainer.epoch] = json.dumps(all_plots)
         if time() - session.timers['metrics'] > session.rate_limits['metrics']:

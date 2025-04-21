@@ -1,6 +1,6 @@
 # Ultralytics YOLO 🚀, AGPL-3.0 license
 
-from hyper_ultralytics.models.yolo import classify, detect, pose, segment
+from models.HyperYOLOt.pkgs.hyper_ultralytics.models.yolo import classify, detect, pose, segment
 
 from .model import YOLO
 

@@ -2,8 +2,8 @@
 
 import cv2
 
-from hyper_ultralytics.utils.checks import check_imshow
-from hyper_ultralytics.utils.plotting import Annotator
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.checks import check_imshow
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.plotting import Annotator
 
 
 class AIGym:

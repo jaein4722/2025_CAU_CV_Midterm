@@ -2,10 +2,10 @@
 
 import torch
 
-from hyper_ultralytics.data.augment import LetterBox
-from hyper_ultralytics.engine.predictor import BasePredictor
-from hyper_ultralytics.engine.results import Results
-from hyper_ultralytics.utils import ops
+from models.HyperYOLOt.pkgs.hyper_ultralytics.data.augment import LetterBox
+from models.HyperYOLOt.pkgs.hyper_ultralytics.engine.predictor import BasePredictor
+from models.HyperYOLOt.pkgs.hyper_ultralytics.engine.results import Results
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import ops
 
 
 class RTDETRPredictor(BasePredictor):
@@ -18,8 +18,8 @@ class RTDETRPredictor(BasePredictor):
 
     Example:
         ```python
-        from hyper_ultralytics.utils import ASSETS
-        from hyper_ultralytics.models.rtdetr import RTDETRPredictor
+        from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import ASSETS
+        from models.HyperYOLOt.pkgs.hyper_ultralytics.models.rtdetr import RTDETRPredictor
 
         args = dict(model='rtdetr-l.pt', source=ASSETS)
         predictor = RTDETRPredictor(overrides=args)

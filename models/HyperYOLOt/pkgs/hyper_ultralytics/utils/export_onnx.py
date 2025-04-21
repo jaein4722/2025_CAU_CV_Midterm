@@ -2,7 +2,7 @@ import sys
 import os
 sys.path.append(os.getcwd())
 from pathlib import Path
-from hyper_ultralytics import YOLO
+from models.HyperYOLOt.pkgs.hyper_ultralytics import YOLO
 
 if __name__ == '__main__':
     model = 'hyper-yolos.pt'

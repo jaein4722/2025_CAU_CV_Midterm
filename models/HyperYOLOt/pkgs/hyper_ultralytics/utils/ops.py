@@ -11,7 +11,7 @@ import torch
 import torch.nn.functional as F
 import torchvision
 
-from hyper_ultralytics.utils import LOGGER
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import LOGGER
 
 
 class Profile(contextlib.ContextDecorator):
@@ -20,7 +20,7 @@ class Profile(contextlib.ContextDecorator):
 
     Example:
         ```python
-        from hyper_ultralytics.utils.ops import Profile
+        from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.ops import Profile
 
         with Profile() as dt:
             pass  # slow operation here

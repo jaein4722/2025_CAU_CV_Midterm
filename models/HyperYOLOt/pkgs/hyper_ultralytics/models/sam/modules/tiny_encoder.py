@@ -17,7 +17,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.utils.checkpoint as checkpoint
 
-from hyper_ultralytics.utils.instance import to_2tuple
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.instance import to_2tuple
 
 
 class Conv2d_BN(torch.nn.Sequential):

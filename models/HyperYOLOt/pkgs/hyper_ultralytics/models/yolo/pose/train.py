@@ -2,10 +2,10 @@
 
 from copy import copy
 
-from hyper_ultralytics.models import yolo
-from hyper_ultralytics.nn.tasks import PoseModel
-from hyper_ultralytics.utils import DEFAULT_CFG, LOGGER
-from hyper_ultralytics.utils.plotting import plot_images, plot_results
+from models.HyperYOLOt.pkgs.hyper_ultralytics.models import yolo
+from models.HyperYOLOt.pkgs.hyper_ultralytics.nn.tasks import PoseModel
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import DEFAULT_CFG, LOGGER
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.plotting import plot_images, plot_results
 
 
 class PoseTrainer(yolo.detect.DetectionTrainer):
@@ -14,7 +14,7 @@ class PoseTrainer(yolo.detect.DetectionTrainer):
 
     Example:
         ```python
-        from hyper_ultralytics.models.yolo.pose import PoseTrainer
+        from models.HyperYOLOt.pkgs.hyper_ultralytics.models.yolo.pose import PoseTrainer
 
         args = dict(model='yolov8n-pose.pt', data='coco8-pose.yaml', epochs=3)
         trainer = PoseTrainer(overrides=args)

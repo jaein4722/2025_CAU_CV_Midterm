@@ -9,7 +9,7 @@ import numpy as np
 import torch
 from PIL import Image
 
-from hyper_ultralytics.utils import TQDM
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import TQDM
 
 
 class FastSAMPrompt:
@@ -33,7 +33,7 @@ class FastSAMPrompt:
         try:
             import clip  # for linear_assignment
         except ImportError:
-            from hyper_ultralytics.utils.checks import check_requirements
+            from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.checks import check_requirements
             check_requirements('git+https://github.com/openai/CLIP.git')
             import clip
         self.clip = clip

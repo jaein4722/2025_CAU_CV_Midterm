@@ -7,9 +7,9 @@ class ModelConfig(BaseConfig):
         super().__init__()
         self.model_name = 'yogan'
         self.lr0 = 0.01
-        self.dfl = 1.5
         self.cls = 0.3
         self.box = 5.0
+        self.obj = 1.0
         
         self.custom_yaml_path = "models/YOGAn/pkgs/yoga_models/YOGA-n.yaml" # "models/YOLO11n/yolo11n_custom.yaml"
         

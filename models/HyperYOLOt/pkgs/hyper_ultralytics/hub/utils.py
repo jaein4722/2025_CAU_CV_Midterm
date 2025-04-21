@@ -10,9 +10,9 @@ from pathlib import Path
 
 import requests
 
-from hyper_ultralytics.utils import (ENVIRONMENT, LOGGER, ONLINE, RANK, SETTINGS, TESTS_RUNNING, TQDM, TryExcept, __version__,
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import (ENVIRONMENT, LOGGER, ONLINE, RANK, SETTINGS, TESTS_RUNNING, TQDM, TryExcept, __version__,
                                colorstr, get_git_origin_url, is_colab, is_git_dir, is_pip_package)
-from hyper_ultralytics.utils.downloads import GITHUB_ASSETS_NAMES
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.downloads import GITHUB_ASSETS_NAMES
 
 PREFIX = colorstr('Ultralytics HUB: ')
 HELP_MSG = 'If this issue persists please visit https://github.com/hyper_ultralytics/hub/issues for assistance.'

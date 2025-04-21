@@ -21,16 +21,16 @@ import torch
 from torch import distributed as dist
 from torch import nn, optim
 
-from hyper_ultralytics.cfg import get_cfg, get_save_dir
-from hyper_ultralytics.data.utils import check_cls_dataset, check_det_dataset
-from hyper_ultralytics.nn.tasks import attempt_load_one_weight, attempt_load_weights
-from hyper_ultralytics.utils import (DEFAULT_CFG, LOGGER, RANK, TQDM, __version__, callbacks, clean_url, colorstr, emojis,
+from models.HyperYOLOt.pkgs.hyper_ultralytics.cfg import get_cfg, get_save_dir
+from models.HyperYOLOt.pkgs.hyper_ultralytics.data.utils import check_cls_dataset, check_det_dataset
+from models.HyperYOLOt.pkgs.hyper_ultralytics.nn.tasks import attempt_load_one_weight, attempt_load_weights
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import (DEFAULT_CFG, LOGGER, RANK, TQDM, __version__, callbacks, clean_url, colorstr, emojis,
                                yaml_save)
-from hyper_ultralytics.utils.autobatch import check_train_batch_size
-from hyper_ultralytics.utils.checks import check_amp, check_file, check_imgsz, check_model_file_from_stem, print_args
-from hyper_ultralytics.utils.dist import ddp_cleanup, generate_ddp_command
-from hyper_ultralytics.utils.files import get_latest_run
-from hyper_ultralytics.utils.torch_utils import (EarlyStopping, ModelEMA, de_parallel, init_seeds, one_cycle, select_device,
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.autobatch import check_train_batch_size
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.checks import check_amp, check_file, check_imgsz, check_model_file_from_stem, print_args
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.dist import ddp_cleanup, generate_ddp_command
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.files import get_latest_run
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.torch_utils import (EarlyStopping, ModelEMA, de_parallel, init_seeds, one_cycle, select_device,
                                            strip_optimizer)
 
 

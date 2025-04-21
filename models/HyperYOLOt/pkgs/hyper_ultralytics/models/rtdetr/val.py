@@ -4,10 +4,10 @@ from pathlib import Path
 
 import torch
 
-from hyper_ultralytics.data import YOLODataset
-from hyper_ultralytics.data.augment import Compose, Format, v8_transforms
-from hyper_ultralytics.models.yolo.detect import DetectionValidator
-from hyper_ultralytics.utils import colorstr, ops
+from models.HyperYOLOt.pkgs.hyper_ultralytics.data import YOLODataset
+from models.HyperYOLOt.pkgs.hyper_ultralytics.data.augment import Compose, Format, v8_transforms
+from models.HyperYOLOt.pkgs.hyper_ultralytics.models.yolo.detect import DetectionValidator
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import colorstr, ops
 
 __all__ = 'RTDETRValidator',  # tuple or list
 
@@ -59,7 +59,7 @@ class RTDETRValidator(DetectionValidator):
 
     Example:
         ```python
-        from hyper_ultralytics.models.rtdetr import RTDETRValidator
+        from models.HyperYOLOt.pkgs.hyper_ultralytics.models.rtdetr import RTDETRValidator
 
         args = dict(model='rtdetr-l.pt', data='coco8.yaml')
         validator = RTDETRValidator(args=args)

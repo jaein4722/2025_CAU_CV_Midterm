@@ -5,8 +5,8 @@ import torch.nn as nn
 import torch.nn.functional as F
 from scipy.optimize import linear_sum_assignment
 
-from hyper_ultralytics.utils.metrics import bbox_iou
-from hyper_ultralytics.utils.ops import xywh2xyxy, xyxy2xywh
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.metrics import bbox_iou
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.ops import xywh2xyxy, xyxy2xywh
 
 
 class HungarianMatcher(nn.Module):

@@ -25,13 +25,13 @@ from pathlib import Path
 import numpy as np
 import torch
 
-from hyper_ultralytics.cfg import get_cfg, get_save_dir
-from hyper_ultralytics.data.utils import check_cls_dataset, check_det_dataset
-from hyper_ultralytics.nn.autobackend import AutoBackend
-from hyper_ultralytics.utils import LOGGER, TQDM, callbacks, colorstr, emojis
-from hyper_ultralytics.utils.checks import check_imgsz
-from hyper_ultralytics.utils.ops import Profile
-from hyper_ultralytics.utils.torch_utils import de_parallel, select_device, smart_inference_mode
+from models.HyperYOLOt.pkgs.hyper_ultralytics.cfg import get_cfg, get_save_dir
+from models.HyperYOLOt.pkgs.hyper_ultralytics.data.utils import check_cls_dataset, check_det_dataset
+from models.HyperYOLOt.pkgs.hyper_ultralytics.nn.autobackend import AutoBackend
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils import LOGGER, TQDM, callbacks, colorstr, emojis
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.checks import check_imgsz
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.ops import Profile
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.torch_utils import de_parallel, select_device, smart_inference_mode
 
 
 class BaseValidator:

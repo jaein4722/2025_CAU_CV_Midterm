@@ -10,7 +10,7 @@ from functools import partial
 
 import torch
 
-from hyper_ultralytics.utils.downloads import attempt_download_asset
+from models.HyperYOLOt.pkgs.hyper_ultralytics.utils.downloads import attempt_download_asset
 
 from .modules.decoders import MaskDecoder
 from .modules.encoders import ImageEncoderViT, PromptEncoder
