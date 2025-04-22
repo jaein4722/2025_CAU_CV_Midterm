@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 from datetime import datetime
 import torch
-from ultralytics import settings, YOLO
+from models.HyperYOLOt.pkgs.hyper_ultralytics import settings, YOLO
 
 from .model_config import ModelConfig
 
