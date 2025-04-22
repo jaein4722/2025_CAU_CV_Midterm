@@ -1,7 +1,7 @@
 nc: 80
 scales:
   n:
-  - 0.2
+  - 0.33
   - 0.25
   - 1024
   s:
@@ -146,5 +146,5 @@ head:
 scale: n
 yaml_file: yolov8n.yaml
 ch: 3
-depth_multiple: 0.2
+depth_multiple: 0.33
 width_multiple: 0.25

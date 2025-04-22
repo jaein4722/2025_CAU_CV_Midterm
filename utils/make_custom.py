@@ -8,6 +8,8 @@ import gc
 import torch
 from datetime import datetime
 from ultralytics import YOLO
+from models.FLDetn.pkgs.ultralytics import YOLO as FLDet
+from models.HyperYOLOt.pkgs.hyper_ultralytics import YOLO as HyperYOLO
 
 
 def parse():
@@ -32,8 +34,13 @@ def parse():
 def load_original_model_yaml(model_path, model_name):
     '''
     '''
-    # Load base model config
-    temp_model = YOLO(f'{model_name}.yaml', verbose=False)
+    if model_name.lower() == "fldetn":
+        temp_model = FLDet(f'models/FLDetn/pkgs/ultralytics/cfg/models/FLDet/FLDet-N.yaml')
+    elif model_name.lower() == "hyperyolot":
+        temp_model = HyperYOLO(f'models/HyperYOLOt/pkgs/hyper_ultralytics/cfg/models/hyper-yolo/hyper-yolot.yaml')
+    else:
+        # Load base model config
+        temp_model = YOLO(f'{model_name}.yaml', verbose=False)
     original_model_dict = temp_model.model.yaml
 
     # Save original yaml
@@ -51,11 +58,11 @@ def load_original_model_yaml(model_path, model_name):
     return original_model_dict
     
 
-def make_custom_yaml(model_path, model_name):
+def make_custom_yaml(model_path, model_name, depth = 0.2, width = 0.25):
     '''
     '''
-    custom_depth = 0.2
-    custom_width = 0.25
+    custom_depth = depth
+    custom_width = width
     
     original_model_dict = load_original_model_yaml(model_path, model_name)
 
@@ -93,7 +100,7 @@ def main(args):
     model_name = model_path.split('/')[1].lower()
     
     # 데이터 전처리 실행
-    make_custom_yaml(model_path, model_name)
+    make_custom_yaml(model_path, model_name, depth, width)
 
     # 추가적으로 생성된 데이터셋을 파일로 저장하거나, 후속 처리를 진행할 수 있습니다.
     print("전처리 완료.")

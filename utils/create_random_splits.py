@@ -30,9 +30,13 @@ def parse():
         "--test_ratio", type=float, default=0.2,
         help="Ratio for testing set. (default: 0.2)"
     )
+    parser.add_argument(
+        "--data_count", type=int, default=None,
+        help="If set, randomly select this many total samples from the dataset before splitting."
+    )
     return parser.parse_args()
 
-def create_random_splits(data_dir, n_splits=5, train_ratio=0.6, val_ratio=0.2, test_ratio=0.2):
+def create_random_splits(data_dir, n_splits=5, train_ratio=0.6, val_ratio=0.2, test_ratio=0.2, data_count=None):
     """
     단일 데이터 경로에서 이미지와 라벨 데이터셋을 N개의 랜덤 train/val/test로 분할하고 관련 파일을 생성합니다.
     
@@ -92,6 +96,12 @@ def create_random_splits(data_dir, n_splits=5, train_ratio=0.6, val_ratio=0.2, t
         names = []
     
     print(f"{data_dir}: {len(valid_samples)}개의 유효한 샘플을 찾았습니다.")
+    
+    # 유효 샘플 리스트(valid_samples)를 만든 뒤, 여기서 개수 제한
+    if data_count is not None and len(valid_samples) > data_count:
+        valid_samples = random.sample(valid_samples, data_count)
+
+    print(f"{data_dir}: 최종 사용 샘플 {len(valid_samples)}개로 분할을 시작합니다.")
     
     # N개의 랜덤 분할 생성
     for iter_idx in range(1, n_splits + 1):
@@ -162,17 +172,19 @@ def main(args):
     train_ratio = args.train_ratio
     val_ratio = args.val_ratio
     test_ratio = args.test_ratio
+    data_count = args.data_count
 
     print("입력된 데이터 디렉터리:", data_dirs)
     print("n_splits:", n_splits)
     print("학습 비율:", train_ratio)
     print("검증 비율:", val_ratio)
     print("테스트 비율:", test_ratio)
+    print("사용할 데이터 수:", data_count if data_count is not None else 'all')
 
     # 데이터 전처리 실행
     for data_dir in data_dirs:
         print(f"\n처리 중: {data_dir}")
-        create_random_splits(data_dir, n_splits, train_ratio, val_ratio, test_ratio)
+        create_random_splits(data_dir, n_splits, train_ratio, val_ratio, test_ratio, data_count)
 
     # 추가적으로 생성된 데이터셋을 파일로 저장하거나, 후속 처리를 진행할 수 있습니다.
     print("전처리 완료.")

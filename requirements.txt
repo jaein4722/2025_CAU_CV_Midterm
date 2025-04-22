@@ -13,6 +13,7 @@ scipy>=1.4.1
 pycocotools>=2.0.6  # COCO mAP
 
 # Utilities
+scikit-learn
 loguru
 rich  # optional for enhanced logging
 tqdm>=4.64.0

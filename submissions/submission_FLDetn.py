@@ -39,6 +39,7 @@ def submission_FLDetn(yaml_path, output_json_path, config = None):
     }
     
     conf = 0.25
+    enable_tta = True
     
     if config is None:
         config = FLDetn.ModelConfig()
@@ -75,7 +76,7 @@ def submission_FLDetn(yaml_path, output_json_path, config = None):
     ex_dict = FLDetn.train_model(ex_dict, config)
     
     test_images = get_test_images(data_config)
-    results_dict = detect_and_save_bboxes(ex_dict['Model'], test_images, conf)
+    results_dict = detect_and_save_bboxes(ex_dict['Model'], test_images, conf, enable_tta)
     save_results_to_file(results_dict, output_json_path)
     
     del model
@@ -124,11 +125,11 @@ def control_random_seed(seed, pytorch=True):
         torch.backends.cudnn.benchmark = False 
 
 
-def detect_and_save_bboxes(model, image_paths, conf):
+def detect_and_save_bboxes(model, image_paths, conf, enable_tta):
     results_dict = {}
 
     for img_path in image_paths:
-        results = model(img_path, verbose=False, conf=conf, task='detect')
+        results = model(img_path, verbose=False, conf=conf, task='detect', augment=enable_tta)
         img_results = []
         for result in results:
             boxes = result.boxes

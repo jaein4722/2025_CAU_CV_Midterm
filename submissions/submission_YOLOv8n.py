@@ -10,6 +10,7 @@ from datetime import datetime
 from models import YOLOv8n
 from utils.ex_dict import update_ex_dict
 from utils.offline_augmentation import augment_dataset
+from utils.make_custom import make_custom_yaml
 
 
 def submission_YOLOv8n(yaml_path, output_json_path, config = None, overwrite_dict: dict = None):
@@ -30,7 +31,11 @@ def submission_YOLOv8n(yaml_path, output_json_path, config = None, overwrite_dic
         'cos_lr': True,
         'custom_yaml_path': None,
     }
+    
+    depth = 0.33
+    width = 0.25
     conf = 0.25
+    enable_tta = True
     
     if config is None:
         config = YOLOv8n.ModelConfig()
@@ -47,6 +52,9 @@ def submission_YOLOv8n(yaml_path, output_json_path, config = None, overwrite_dic
     ###### can be modified (Only Models, which can't be modified in demo) ######
     from ultralytics import YOLO
     ex_dict['Iteration']  = int(yaml_path.split('.yaml')[0][-2:])
+    
+    if ex_dict['Iteration'] == 1 and hyperparams['custom_yaml_path'] is not None:
+        make_custom_yaml(model_path="models/YOLOv8n", model_name='yolov8n', depth=depth, width=width)
     
     Dataset_Name = yaml_path.split('/')[1]
     
@@ -72,7 +80,7 @@ def submission_YOLOv8n(yaml_path, output_json_path, config = None, overwrite_dic
     ex_dict = YOLOv8n.train_model(ex_dict, config)
     
     test_images = get_test_images(data_config)
-    results_dict = detect_and_save_bboxes(ex_dict['Model'], test_images, conf)
+    results_dict = detect_and_save_bboxes(ex_dict['Model'], test_images, conf, enable_tta)
     save_results_to_file(results_dict, output_json_path)
     
     del model
@@ -121,11 +129,11 @@ def control_random_seed(seed, pytorch=True):
         torch.backends.cudnn.benchmark = False 
 
 
-def detect_and_save_bboxes(model, image_paths, conf):
+def detect_and_save_bboxes(model, image_paths, conf, enable_tta):
     results_dict = {}
 
     for img_path in image_paths:
-        results = model(img_path, verbose=False, conf=conf, task='detect')
+        results = model(img_path, verbose=False, conf=conf, task='detect', augment=enable_tta)
         img_results = []
         for result in results:
             boxes = result.boxes

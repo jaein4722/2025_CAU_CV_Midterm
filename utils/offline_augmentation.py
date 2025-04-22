@@ -4,40 +4,120 @@ import cv2
 import random
 import numpy as np
 
-def gridmask(img):
-    d_min, d_max = 64, 128   # 셀 크기 범위
-    ratio = 0.5              # 셀 내 마스크 비율
-    rotate = 0               # 회전 각도 (°)
-    fill_value = 0           # 마스크된 픽셀 값
-    
+import random
+import cv2
+import numpy as np
+
+def apply_gridmask(
+    img: np.ndarray,
+    prob: float = 0.5,
+    num_grid: int = 4,
+    ratio: float = 0.25,
+    shift: int = 10,
+    rotate: float = 10
+) -> np.ndarray:
+    """
+    Apply GridMask augmentation with square cells to a single image.
+
+    Args:
+        img (np.ndarray): H×W×C uint8 image.
+        prob (float): probability of applying the mask (0.0–1.0).
+        num_grid (int): number of cells per axis (creates num_grid×num_grid grid).
+        ratio (float): fraction of each cell to mask (hole size = ratio × cell_size).
+        shift (int): maximum pixel shift for hole origin right/down (0–shift).
+        rotate (float): maximum rotation angle in degrees (±rotate).
+
+    Returns:
+        np.ndarray: augmented image (same shape and dtype as input).
+    """
+    if random.random() >= prob:
+        return img
+
     h, w = img.shape[:2]
-    d = random.randint(d_min, d_max)
-    l = int(d * ratio + 0.5)
-    st_h = random.randint(0, d)
-    st_w = random.randint(0, d)
+    # Ensure square cells: use the larger dimension to define cell size
+    cell_size = int(np.ceil(max(h, w) / num_grid))
+    hole_size = int(cell_size * ratio + 0.5)
+    off_h = random.randint(0, shift)
+    off_w = random.randint(0, shift)
 
-    # 마스크 생성 (1=유지, 0=가림)
     mask = np.ones((h, w), dtype=np.uint8)
-    for i in range(-1, h // d + 1):
-        s = i * d + st_h
-        e = s + l
-        mask[max(s,0):min(e,h), :] = 0
-    for j in range(-1, w // d + 1):
-        s = j * d + st_w
-        e = s + l
-        mask[:, max(s,0):min(e,w)] = 0
+    # Carve square holes in each cell
+    for i in range(num_grid):
+        for j in range(num_grid):
+            y = i * cell_size + off_h
+            x = j * cell_size + off_w
+            y1 = y + (cell_size - hole_size) // 2
+            x1 = x + (cell_size - hole_size) // 2
+            y2 = y1 + hole_size
+            x2 = x1 + hole_size
+            y1c, x1c = max(0, y1), max(0, x1)
+            y2c, x2c = min(h, y2), min(w, x2)
+            if y1c < y2c and x1c < x2c:
+                mask[y1c:y2c, x1c:x2c] = 0
 
-    # 회전
+    # Rotate mask
     if rotate:
-        M = cv2.getRotationMatrix2D((w/2, h/2), random.uniform(-rotate, rotate), 1.0)
+        M = cv2.getRotationMatrix2D((w / 2, h / 2), random.uniform(-rotate, rotate), 1.0)
         mask = cv2.warpAffine(mask, M, (w, h), flags=cv2.INTER_NEAREST)
 
-    # 적용
+    # Apply mask (black holes)
     if img.ndim == 3:
         mask = mask[:, :, None]
-    aug_img = img * mask + fill_value * (1 - mask)
+    return img * mask
+
+def apply_color_jitter(
+    img: np.ndarray,
+    prob: float = 0.5, 
+    brightness: float = 0.2,
+    contrast: float = 0.2,
+    saturation: float = 0.2,
+    hue: float = 0.1
+) -> np.ndarray:
+    """
+    Randomly jitter brightness, contrast, saturation, and hue of an image.
+
+    Args:
+        img (np.ndarray): Input image in BGR uint8 format.
+        brightness (float): max brightness change as a fraction of 255 (±).
+        contrast (float): max contrast multiplier change (±).
+        saturation (float): max saturation multiplier change (±).
+        hue (float): max hue shift as fraction of 180° (±).
+
+    Returns:
+        np.ndarray: Color-jittered image in BGR uint8.
+    """
     
-    return aug_img
+    if random.random() >= prob:
+        return img
+    
+    # Convert to float32 for more precise operations
+    out = img.astype(np.float32)
+
+    # 1) Brightness & Contrast (on BGR)
+    #    contrast α ∈ [1-contrast, 1+contrast]
+    α = random.uniform(1 - contrast, 1 + contrast)
+    #    brightness β ∈ [-brightness*255, +brightness*255]
+    β = random.uniform(-brightness * 255, brightness * 255)
+    out = α * out + β
+    out = np.clip(out, 0, 255)
+
+    # 2) Saturation & Hue (in HSV)
+    hsv = cv2.cvtColor(out.astype(np.uint8), cv2.COLOR_BGR2HSV).astype(np.float32)
+    h, s, v = cv2.split(hsv)
+    #    hue shift ∈ [−hue*180, +hue*180]
+    h = (h + random.uniform(-hue * 180, hue * 180)) % 180
+    #    saturation scale ∈ [1-saturation, 1+saturation]
+    s *= random.uniform(1 - saturation, 1 + saturation)
+    #    clip saturation
+    s = np.clip(s, 0, 255)
+    #    value (brightness) channel already adjusted above, but you can also jitter here:
+    v *= random.uniform(1-brightness, 1+brightness)
+    v = np.clip(v, 0, 255)
+
+    hsv = cv2.merge([h, s, v]).astype(np.uint8)
+    out = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
+
+    return out
 
 def augment_dataset(dataset_name: str):
     base_dir = os.path.join("Datasets", dataset_name)
@@ -58,9 +138,7 @@ def augment_dataset(dataset_name: str):
     if already:
         print("✅ 데이터셋이 이미 증강되어 있습니다. 작업을 건너뜁니다.")
         return
-
-    # gridmask 파라미터
-    grid_prob = 0.5          # 적용 확률
+    
 
     for img_path in glob.glob(os.path.join(img_dir, "*")):
         stem, ext = os.path.splitext(os.path.basename(img_path))
@@ -77,8 +155,8 @@ def augment_dataset(dataset_name: str):
         aug_img  = cv2.flip(img, 1)
 
         # 확률적으로 GridMask 적용
-        if random.random() < grid_prob:
-            aug_img = gridmask(aug_img)
+        aug_img =apply_gridmask(aug_img, prob=0.5)
+        aug_img =apply_color_jitter(aug_img, prob=0.5)
 
         # 레이블 읽어 x_center 뒤집기
         new_lines = []
