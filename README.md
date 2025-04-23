@@ -20,6 +20,9 @@ python -m ipykernel install --user --name CV_jaein4722 --dieplay-name CV_jaein47
 pip install -r requirements.txt
 ```
 
+주피터랩에서 실행해본 적이 없어, ipykernel을 requirements에 담지 못했습니다.
+해당 내용 데모 도중 조교님께 말씀드려 확인받았습니다.
+
 요청해주신 내용대로 requirements.txt 내용 남겨드립니다!
 ```
 # Base dependencies
