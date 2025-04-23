@@ -36,6 +36,8 @@ def submission_2_20221555(yaml_path, output_json_path, config = None):
     width = 0.25
     conf = 0.25
     enable_tta = True
+    grid_prob = 0.5
+    color_prob = 0.5
     
     if config is None:
         config = HyperYOLOt.ModelConfig()
@@ -58,7 +60,7 @@ def submission_2_20221555(yaml_path, output_json_path, config = None):
     ex_dict['Number of Classes'] = data_config['nc']
     ex_dict['Class Names'] = data_config['names']
     
-    augment_dataset(Dataset_Name)
+    augment_dataset(Dataset_Name, grid_prob, color_prob)
     control_random_seed(42)
     
     if config.custom_yaml_path is not None:

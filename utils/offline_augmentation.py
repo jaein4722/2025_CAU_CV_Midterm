@@ -119,7 +119,7 @@ def apply_color_jitter(
 
     return out
 
-def augment_dataset(dataset_name: str):
+def augment_dataset(dataset_name: str, grid_prob=0.5, color_prob=0.5):
     base_dir = os.path.join("Datasets", dataset_name)
     img_dir  = os.path.join(base_dir, "images")
     lbl_dir  = os.path.join(base_dir, "labels")
@@ -155,8 +155,8 @@ def augment_dataset(dataset_name: str):
         aug_img  = cv2.flip(img, 1)
 
         # 확률적으로 GridMask 적용
-        aug_img =apply_gridmask(aug_img, prob=0.5)
-        aug_img =apply_color_jitter(aug_img, prob=0.5)
+        aug_img =apply_gridmask(aug_img, prob=grid_prob)
+        aug_img =apply_color_jitter(aug_img, prob=color_prob)
 
         # 레이블 읽어 x_center 뒤집기
         new_lines = []
