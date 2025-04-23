@@ -1,6 +1,6 @@
 # CV submission
 
-### submission_1_20221555.py: FLDet-N
+### submission_1_20221555.py: FLDet-N (Proposed)
 
 ### submission_2_20221555.py: HyperYOLO-T
 
